@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+* {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Cormorant Infant', serif;
+}
+
+.font-mono {
+  font-family: 'Geist Mono', monospace;
+}
