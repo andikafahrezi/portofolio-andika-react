@@ -1,27 +1,21 @@
-import { useState, useEffect} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import Home from './pages/Home'
-import About from './pages/About'
-import Projects from './pages/Projects'
+import Index from './pages/Index'
+import Works from './pages/Works'
+import Info from './pages/Info'
 import Contact from './pages/Contact'
+import PageTransition from './components/PageTransition'
 
 function AnimatedRoutes() {
   const location = useLocation()
-
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/" element={<PageTransition><Index /></PageTransition>} />
+        <Route path="/works" element={<PageTransition><Works /></PageTransition>} />
+        <Route path="/info" element={<PageTransition><Info /></PageTransition>} />
+        <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
       </Routes>
     </AnimatePresence>
   )
@@ -30,12 +24,11 @@ function AnimatedRoutes() {
 function App() {
   return (
     <BrowserRouter>
-      <div className="bg-gray-950 flex flex-col min-h-screen">
+      <div className="min-h-screen bg-[#F5F2EE] text-[#1A1814]">
         <Navbar />
-        <main className="flex-1">
+        <main className="pt-20">
           <AnimatedRoutes />
         </main>
-        <Footer />
       </div>
     </BrowserRouter>
   )
