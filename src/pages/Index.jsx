@@ -47,7 +47,7 @@ function Index() {
             zIndex: 0,
           }}
         >
-          <source src="public/video/Yuta Okkotsu vs Kurourushi cut.mp4" type="video/mp4" />
+          <source src="/video/Yuta Okkotsu vs Kurourushi cut.mp4" type="video/mp4" />
         </video>
 
         {/* Overlay gelap */}
