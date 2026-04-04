@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
+import { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Index from './pages/Index'
 import Works from './pages/Works'
@@ -9,6 +10,19 @@ import PageTransition from './components/PageTransition'
 
 function AnimatedRoutes() {
   const location = useLocation()
+
+  useEffect(() => {
+    const pageNames = {
+      '/': 'Home',
+      '/works': 'Works',
+      '/info': 'Info',
+      '/contact': 'Contact',
+    }
+    
+    const pageName = pageNames[location.pathname] || 'Page'
+    document.title = `${pageName} | Andika Fahrezi`
+  }, [location.pathname])
+
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
