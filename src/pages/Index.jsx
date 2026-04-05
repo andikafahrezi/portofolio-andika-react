@@ -24,49 +24,51 @@ function Index() {
     return () => window.removeEventListener('resize', fitText)
   }, [])
 
-  // Continuous seamless infinite scroll carousel
+  // Continuous seamless infinite scroll carousel - Left direction only
   useEffect(() => {
     const gallery = galleryRef.current
     if (!gallery) return
 
     let isUserScrolling = false
     let scrollTimeout
+    let isHovering = false
     
     const itemWidth = 420 + 24 // minWidth + gap
     const itemCount = 4 // Original items
-    const totalItemsInDom = 12 // 3x repeat untuk seamless loop
+    const loops = 2 // 2x repetition untuk seamless infinite
+
+    // Wait for DOM to be ready, then start from middle
+    setTimeout(() => {
+      gallery.scrollLeft = itemWidth * itemCount // Start at 2nd copy
+    }, 100)
 
     const animate = () => {
       if (!isUserScrolling) {
-        gallery.scrollLeft += scrollSpeedRef.current
+        const speed = isHovering ? 0.3 : 1 // Slower when hovering
+        gallery.scrollLeft -= speed
 
-        // Seamless bidirectional infinite loop
-        // Jump right when reaching 2nd loop end
-        if (gallery.scrollLeft > itemWidth * itemCount * 2) {
-          gallery.scrollLeft = itemWidth * itemCount
-        }
-        // Jump left when reaching beginning
-        if (gallery.scrollLeft <= 0) {
-          gallery.scrollLeft = itemWidth * itemCount
+        // Seamless loop: jump from end of 1st copy back to start of 2nd copy
+        if (gallery.scrollLeft <= itemWidth * 0.5) {
+          gallery.scrollLeft = itemWidth * itemCount + (itemWidth * itemCount)
         }
       }
 
       rafRef.current = requestAnimationFrame(animate)
     }
 
-    // Handle manual left/right scrolling
     const handleScroll = () => {
-      const itemWidth = 420 + 24 // minWidth + gap
-      const itemCount = 4 // Original items
-      
-      // Jump to end if user scrolls past the start
-      if (gallery.scrollLeft <= 0) {
-        gallery.scrollLeft = itemWidth * itemCount
+      // Jump back if scrolled past start
+      if (gallery.scrollLeft <= itemWidth * 0.5) {
+        gallery.scrollLeft = itemWidth * itemCount + (itemWidth * itemCount)
       }
-      // Jump to start if user scrolls past the end
-      if (gallery.scrollLeft > itemWidth * itemCount * 2) {
-        gallery.scrollLeft = itemWidth * itemCount
-      }
+    }
+
+    const handleMouseEnter = () => {
+      isHovering = true
+    }
+
+    const handleMouseLeave = () => {
+      isHovering = false
     }
 
     const handleMouseDown = () => {
@@ -93,9 +95,10 @@ function Index() {
 
     // Event listeners
     gallery.addEventListener('scroll', handleScroll)
+    gallery.addEventListener('mouseenter', handleMouseEnter, true)
+    gallery.addEventListener('mouseleave', handleMouseLeave, true)
     gallery.addEventListener('mousedown', handleMouseDown)
     gallery.addEventListener('mouseup', handleMouseUp)
-    gallery.addEventListener('mouseleave', handleMouseUp)
     gallery.addEventListener('wheel', handleWheel, { passive: true })
     gallery.addEventListener('touchstart', handleMouseDown)
     gallery.addEventListener('touchend', handleMouseUp)
@@ -105,9 +108,10 @@ function Index() {
         cancelAnimationFrame(rafRef.current)
       }
       gallery.removeEventListener('scroll', handleScroll)
+      gallery.removeEventListener('mouseenter', handleMouseEnter, true)
+      gallery.removeEventListener('mouseleave', handleMouseLeave, true)
       gallery.removeEventListener('mousedown', handleMouseDown)
       gallery.removeEventListener('mouseup', handleMouseUp)
-      gallery.removeEventListener('mouseleave', handleMouseUp)
       gallery.removeEventListener('wheel', handleWheel)
       gallery.removeEventListener('touchstart', handleMouseDown)
       gallery.removeEventListener('touchend', handleMouseUp)
@@ -178,11 +182,19 @@ function Index() {
 
       {/* ── BIO ── */}
       <section style={{ padding: '140px 48px 140px', backgroundColor: '#F5F2EE', borderBottom: '0.5px solid #D4CFC8' }}>
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.08,
+              },
+            },
+          }}
           style={{
             fontFamily: 'Plus Jakarta Sans',
             fontSize: 'clamp(28px, 3.5vw, 52px)',
@@ -190,12 +202,31 @@ function Index() {
             color: '#1A1814',
             lineHeight: 1.3,
             maxWidth: '70%',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '0.3em',
           }}
         >
-          Hi, I'm Andika, I am a graduate with a Bachelor of Applied Science
-          in Digital Creative Multimedia. with experience in smart technology
-          research, IoT data analysis, and strong skills in UI/UX design using Figma.
-        </motion.p>
+          {[
+            'Hi,', "I'm", 'Andika,', 'I', 'am', 'a', 'graduate', 'with', 'a', 'Bachelor', 'of', 'Applied', 'Science',
+            'in', 'Digital', 'Creative', 'Multimedia.', 'with', 'experience', 'in', 'smart', 'technology',
+            'research,', 'IoT', 'data', 'analysis,', 'and', 'strong', 'skills', 'in', 'UI/UX', 'design', 'using', 'Figma.'
+          ].map((word, index) => (
+            <motion.span
+              key={`${word}-${index}`}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.5, ease: 'easeOut' },
+                },
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </motion.div>
       </section>
 
     {/* ── SELECTED WORKS ── */}
@@ -428,7 +459,7 @@ function Index() {
         style={{
           display: 'flex',
           overflowX: 'auto',
-          scrollBehavior: 'smooth',
+          scrollBehavior: 'revert-layer',
           gap: '24px',
           paddingLeft: '48px',
           paddingRight: '48px',
@@ -445,68 +476,38 @@ function Index() {
           }
         `}</style>
 
-        {/* Seamless infinite carousel - 3 complete loops */}
+        {/* Infinite carousel - 4 original items x 2 loops untuk seamless infinite */}
         {[
           // Loop 1
-          { id: 1, img: '/images/hobby1.jpg' },
-          { id: 2, img: '/images/hobby2.jpg' },
-          { id: 3, img: '/images/hobby3.jpg' },
-          { id: 4, img: '/images/hobby4.jpg' },
-          // Loop 2 (seamless repeat)
-          { id: 1, img: '/images/hobby1.jpg' },
-          { id: 2, img: '/images/hobby2.jpg' },
-          { id: 3, img: '/images/hobby3.jpg' },
-          { id: 4, img: '/images/hobby4.jpg' },
-          // Loop 3 (buffer for jumping)
-          { id: 1, img: '/images/hobby1.jpg' },
-          { id: 2, img: '/images/hobby2.jpg' },
-          { id: 3, img: '/images/hobby3.jpg' },
-          { id: 4, img: '/images/hobby4.jpg' },
+          { id: 1, img: '/images/bultang1.jpeg' },
+          { id: 2, img: '/images/andika2.jpeg' },
+          { id: 3, img: '/images/andika.jpeg' },
+          { id: 4, img: '/images/rumahpohon.jpeg' },
+          // Loop 2 (seamless repeat - allows infinite loop without visible duplication)
+          { id: 1, img: '/images/bultang1.jpeg' },
+          { id: 2, img: '/images/andika2.jpeg' },
+          { id: 3, img: '/images/andika.jpeg' },
+          { id: 4, img: '/images/rumahpohon.jpeg' },
         ].map((item, index) => (
           <motion.div
             key={`${item.id}-${index}`}
-            whileHover={{
-              scale: 1.08,
-              y: -15,
-            }}
-            transition={{
-              type: 'spring',
-              stiffness: 300,
-              damping: 20,
-            }}
             style={{
               minWidth: '420px',
               height: '420px',
               borderRadius: '16px',
               overflow: 'hidden',
               cursor: 'pointer',
-              boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
               flexShrink: 0,
             }}
           >
-            <motion.img
+            <img
               src={item.img}
               alt={`hobby-${item.id}`}
-              whileHover={{ scale: 1.12 }}
-              transition={{ duration: 0.3 }}
               style={{
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
                 display: 'block',
-              }}
-            />
-
-            {/* Overlay on hover */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%)',
-                pointerEvents: 'none',
               }}
             />
           </motion.div>
