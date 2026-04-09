@@ -1,123 +1,105 @@
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { video } from 'framer-motion/client'
+import { motion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
+import Navbar from '../components/Navbar'
+
+function Gallery({ images }) {
+  // Duplicate untuk seamless infinite loop
+  const allImages = [...images, ...images, ...images]
+
+  return (
+    <div
+      style={{
+        overflow: 'hidden',
+        paddingBottom: '48px',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          gap: '24px',
+          width: 'max-content',
+          animation: 'scroll-left 60s linear infinite',
+        }}
+        onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
+        onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}
+      >
+        {allImages.map((item, index) => (
+          <div
+            key={`${item.id}-${index}`}
+            style={{
+              width: '420px',
+              height: '420px',
+              borderRadius: '16px',
+              overflow: 'hidden',
+              cursor: 'pointer',
+              flexShrink: 0,
+            }}
+          >
+            <img
+              src={item.img}
+              alt={`hobby-${item.id}`}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                display: 'block',
+              }}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 function Index() {
   const textRef = useRef(null)
-  const galleryRef = useRef(null)
-  const rafRef = useRef(null)
-  const scrollSpeedRef = useRef(1) // pixels per frame - lebih smooth
 
   useEffect(() => {
     const fitText = () => {
       const el = textRef.current
       if (!el) return
-      const padding = 96 // 48px kiri + 48px kanan
+
+      // Force reflow untuk memastikan ukuran terbaru
       el.style.transform = 'scaleX(1)'
+      void el.offsetWidth // trigger reflow
+
+      const padding = 96 // 48px kiri + 48px kanan
       const availableWidth = window.innerWidth - padding
       const scale = availableWidth / el.scrollWidth
       el.style.transform = `scaleX(${scale})`
       el.style.transformOrigin = 'left'
     }
-    fitText()
-    window.addEventListener('resize', fitText)
-    return () => window.removeEventListener('resize', fitText)
-  }, [])
 
-  // Continuous seamless infinite scroll carousel - Left direction only
-  useEffect(() => {
-    const gallery = galleryRef.current
-    if (!gallery) return
-
-    let isUserScrolling = false
-    let scrollTimeout
-    let isHovering = false
-    
-    const itemWidth = 420 + 24 // minWidth + gap
-    const itemCount = 4 // Original items
-    const loops = 2 // 2x repetition untuk seamless infinite
-
-    // Wait for DOM to be ready, then start from middle
-    setTimeout(() => {
-      gallery.scrollLeft = itemWidth * itemCount // Start at 2nd copy
-    }, 100)
-
-    const animate = () => {
-      if (!isUserScrolling) {
-        const speed = isHovering ? 0.3 : 1 // Slower when hovering
-        gallery.scrollLeft -= speed
-
-        // Seamless loop: jump from end of 1st copy back to start of 2nd copy
-        if (gallery.scrollLeft <= itemWidth * 0.5) {
-          gallery.scrollLeft = itemWidth * itemCount + (itemWidth * itemCount)
-        }
-      }
-
-      rafRef.current = requestAnimationFrame(animate)
-    }
-
-    const handleScroll = () => {
-      // Jump back if scrolled past start
-      if (gallery.scrollLeft <= itemWidth * 0.5) {
-        gallery.scrollLeft = itemWidth * itemCount + (itemWidth * itemCount)
+    // Tunggu font load selesai sebelum menghitung
+    const initFitText = () => {
+      if (document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          requestAnimationFrame(fitText)
+        })
+      } else {
+        requestAnimationFrame(fitText)
       }
     }
 
-    const handleMouseEnter = () => {
-      isHovering = true
+    initFitText()
+
+    // Resize dengan debounce untuk performa
+    let resizeTimeout
+    const handleResize = () => {
+      clearTimeout(resizeTimeout)
+      resizeTimeout = setTimeout(() => {
+        requestAnimationFrame(fitText)
+      }, 150)
     }
 
-    const handleMouseLeave = () => {
-      isHovering = false
-    }
-
-    const handleMouseDown = () => {
-      isUserScrolling = true
-    }
-
-    const handleMouseUp = () => {
-      clearTimeout(scrollTimeout)
-      scrollTimeout = setTimeout(() => {
-        isUserScrolling = false
-      }, 1000)
-    }
-
-    const handleWheel = () => {
-      isUserScrolling = true
-      clearTimeout(scrollTimeout)
-      scrollTimeout = setTimeout(() => {
-        isUserScrolling = false
-      }, 800)
-    }
-
-    // Start animation
-    rafRef.current = requestAnimationFrame(animate)
-
-    // Event listeners
-    gallery.addEventListener('scroll', handleScroll)
-    gallery.addEventListener('mouseenter', handleMouseEnter, true)
-    gallery.addEventListener('mouseleave', handleMouseLeave, true)
-    gallery.addEventListener('mousedown', handleMouseDown)
-    gallery.addEventListener('mouseup', handleMouseUp)
-    gallery.addEventListener('wheel', handleWheel, { passive: true })
-    gallery.addEventListener('touchstart', handleMouseDown)
-    gallery.addEventListener('touchend', handleMouseUp)
-
+    window.addEventListener('resize', handleResize)
     return () => {
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current)
-      }
-      gallery.removeEventListener('scroll', handleScroll)
-      gallery.removeEventListener('mouseenter', handleMouseEnter, true)
-      gallery.removeEventListener('mouseleave', handleMouseLeave, true)
-      gallery.removeEventListener('mousedown', handleMouseDown)
-      gallery.removeEventListener('mouseup', handleMouseUp)
-      gallery.removeEventListener('wheel', handleWheel)
-      gallery.removeEventListener('touchstart', handleMouseDown)
-      gallery.removeEventListener('touchend', handleMouseUp)
-      clearTimeout(scrollTimeout)
+      window.removeEventListener('resize', handleResize)
+      clearTimeout(resizeTimeout)
     }
   }, [])
+
 
   return (
     <div>
@@ -129,6 +111,9 @@ function Index() {
         justifyContent: 'flex-end',
         overflow: 'hidden',
       }}>
+
+        {/* Navbar - Fixed di section ini */}
+        <Navbar />
 
         {/* Background image */}
         <video
@@ -434,6 +419,16 @@ function Index() {
 
     {/* ── PERSONAL DOCUMENTATION ── */}
     <section style={{ padding: '140px 0 140px 0', backgroundColor: '#F5F2EE', overflow: 'hidden' }}>
+      <style>{`
+        @keyframes scroll-left {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(calc(-420px * 4 - 24px * 4));
+          }
+        }
+      `}</style>
       <div style={{ paddingLeft: '48px', paddingRight: '48px', paddingBottom: '64px' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -453,85 +448,12 @@ function Index() {
         </motion.div>
       </div>
 
-      {/* Scrollable Carousel */}
-      <div
-        ref={galleryRef}
-        style={{
-          display: 'flex',
-          overflowX: 'auto',
-          scrollBehavior: 'revert-layer',
-          gap: '24px',
-          paddingLeft: '48px',
-          paddingRight: '48px',
-          paddingBottom: '48px',
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none',
-          WebkitOverflowScrolling: 'touch',
-        }}
-      >
-        {/* Hide scrollbar CSS */}
-        <style>{`
-          div::-webkit-scrollbar {
-            display: none;
-          }
-        `}</style>
-
-        {/* Infinite carousel - 4 original items x 2 loops untuk seamless infinite */}
-        {[
-          // Loop 1
-          { id: 1, img: '/images/bultang1.jpeg' },
-          { id: 2, img: '/images/andika2.jpeg' },
-          { id: 3, img: '/images/andika.jpeg' },
-          { id: 4, img: '/images/rumahpohon.jpeg' },
-          // Loop 2 (seamless repeat - allows infinite loop without visible duplication)
-          { id: 1, img: '/images/bultang1.jpeg' },
-          { id: 2, img: '/images/andika2.jpeg' },
-          { id: 3, img: '/images/andika.jpeg' },
-          { id: 4, img: '/images/rumahpohon.jpeg' },
-        ].map((item, index) => (
-          <motion.div
-            key={`${item.id}-${index}`}
-            style={{
-              minWidth: '420px',
-              height: '420px',
-              borderRadius: '16px',
-              overflow: 'hidden',
-              cursor: 'pointer',
-              flexShrink: 0,
-            }}
-          >
-            <img
-              src={item.img}
-              alt={`hobby-${item.id}`}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                display: 'block',
-              }}
-            />
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Scroll Hint */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.3 }}
-        viewport={{ once: true }}
-        style={{
-          textAlign: 'center',
-          fontSize: '12px',
-          color: '#999',
-          fontFamily: 'Geist Mono',
-          letterSpacing: '0.1em',
-          paddingLeft: '48px',
-          paddingRight: '48px',
-        }}
-      >
-        ← SCROLL HORIZONTALLY →
-      </motion.div>
+      <Gallery images={[
+        { id: 1, img: '/images/bultang1.jpeg' },
+        { id: 2, img: '/images/andika2.jpeg' },
+        { id: 3, img: '/images/andika.jpeg' },
+        { id: 4, img: '/images/rumahpohon.jpeg' },
+      ]} />
     </section>
 
     </div>

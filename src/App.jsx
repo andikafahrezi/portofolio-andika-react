@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { useEffect } from 'react'
-import Navbar from './components/Navbar'
 import Index from './pages/Index'
 import Works from './pages/Works'
 import Info from './pages/Info'
@@ -39,8 +38,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-[#F5F2EE] text-[#1A1814]">
-        <Navbar />
-        <main className="pt-20">
+        <main>
           <AnimatedRoutes />
         </main>
       </div>
