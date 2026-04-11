@@ -29,7 +29,7 @@ function Gallery({ images }) {
             style={{
               width: '420px',
               height: '420px',
-              borderRadius: '16px',
+              // borderRadius: '16px',
               overflow: 'hidden',
               cursor: 'pointer',
               flexShrink: 0,
@@ -249,15 +249,15 @@ function Index() {
             flexDirection: 'column',
           }}
           onMouseEnter={e => {
-              e.currentTarget.style.backgroundColor = '#F5F2EE'
-              const title = e.currentTarget.querySelector('.proj-title')
-              if (title) title.style.color = '#E8650A'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.backgroundColor = '#F5F2EE'
-              const title = e.currentTarget.querySelector('.proj-title')
-              if (title) title.style.color = '#1A1814'
-            }}
+            e.currentTarget.style.backgroundColor = '#F5F2EE'
+            const titles = e.currentTarget.querySelectorAll('.proj-title')
+            titles.forEach(t => t.style.color = '#E8650A')
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.backgroundColor = '#F5F2EE'
+            const titles = e.currentTarget.querySelectorAll('.proj-title')
+            titles.forEach(t => t.style.color = '#1A1814')
+          }}
         >
           {/* Project Header — STICKY */}
           <div
@@ -280,18 +280,47 @@ function Index() {
               <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: '#E8650A', minWidth: '24px' }}>
                 {project.num}
               </span>
-              <span
-                className="proj-title"
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: { staggerChildren: 0.07 },
+                  },
+                }}
                 style={{
-                  fontFamily: 'Plus Jakarta Sans',
-                  fontSize: 'clamp(16px, 1.8vw, 24px)',
-                  fontWeight: 500,
-                  color: '#1A1814',
-                  transition: 'color 0.3s ease',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '0.25em',
                 }}
               >
-                {project.title}
-              </span>
+                {project.title.split(' ').map((word, i) => (
+                  <motion.span
+                    key={i}
+                    className="proj-title"
+                    variants={{
+                      hidden: { opacity: 0, y: 20 },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: { duration: 0.6, ease: 'easeOut' },
+                      },
+                    }}
+                    style={{
+                      fontFamily: 'Plus Jakarta Sans',
+                      fontSize: 'clamp(16px, 1.8vw, 24px)',
+                      fontWeight: 500,
+                      color: '#1A1814',
+                      transition: 'color 0.3s ease',
+                    }}
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+              </motion.div>
             </div>
 
             {/* Right side: tags */}
@@ -397,8 +426,8 @@ function Index() {
               'Data Analysis',
             ].map((skill, index) => (
               <div key={index} style={{
-                paddingBottom: index < 3 ? '24px' : '0',
-                borderBottom: index < 3 ? '0.5px solid #D4CFC8' : 'none',
+                paddingBottom: index < 4 ? '24px' : '0',
+                borderBottom: index < 4 ? '0.5px solid #D4CFC8' : 'none',
               }}>
                 <h3 style={{
                   fontFamily: 'Plus Jakarta Sans',
@@ -455,6 +484,113 @@ function Index() {
         { id: 4, img: '/images/rumahpohon.jpeg' },
       ]} />
     </section>
+
+    {/* ── CONTACT CTA ── */}
+    <section style={{
+      display: 'flex',
+      padding: '140px 48px',
+      borderTop: '0.5px solid #D4CFC8',
+      borderBottom: '0.5px solid #D4CFC8',
+      backgroundColor: '#F5F2EE',
+    }}>
+      {/* Kiri — kosong */}
+      <div style={{ flex: 1 }} />
+
+      {/* Kanan — teks + email */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        {/* Animasi kata per kata */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.08,
+              },
+            },
+          }}
+          style={{
+            fontFamily: 'Plus Jakarta Sans',
+            fontSize: 'clamp(20px, 2.2vw, 30px)',
+            fontWeight: 600,
+            color: '#1A1814',
+            lineHeight: 1.1,
+            maxWidth: '380px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '0.3em',
+          }}
+        >
+          {[
+            'Available', 'for', 'work', 'and', 'always', 'seeking',
+            'opportunities', 'to', 'contribute', 'professionally',
+            'in', 'the', 'field', 'of', 'smart', 'technology',
+            'and', 'design.'
+          ].map((word, index) => (
+            <motion.span
+              key={`${word}-${index}`}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.5, ease: 'easeOut' },
+                },
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </motion.div>
+
+        {/* email */}
+        <motion.a
+          href="mailto:andfrz09@gmail.com"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: 'easeOut', delay: 0.15 }}
+          viewport={{ once: true }}
+          style={{
+            fontFamily: 'Plus Jakarta Sans',
+            fontSize: 'clamp(14px, 1.2vw, 18px)',
+            fontWeight: 500,
+            color: '#1A1814',
+            textDecoration: 'underline',
+            textUnderlineOffset: '4px',
+          }}
+        >
+          andfrz09@gmail.com
+        </motion.a>
+      </div>
+    </section>
+
+    {/* ── FOOTER ── */}
+    <footer style={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: '24px 48px',
+      backgroundColor: '#F5F2EE',
+    }}>
+      <span style={{
+        fontFamily: 'Geist Mono',
+        fontSize: '11px',
+        color: '#1A1814',
+        letterSpacing: '0.08em',
+      }}>
+        ANDIKA FAHREZI®
+      </span>
+      <span style={{
+        fontFamily: 'Geist Mono',
+        fontSize: '11px',
+        color: '#1A1814',
+      }}>
+        andfrz09@gmail.com
+      </span>
+    </footer>
 
     </div>
   )
