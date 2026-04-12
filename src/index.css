@@ -39,3 +39,8 @@ h1, h2, h3, h4, h5, h6 {
   animation: marquee 20s linear infinite;
 }
 
+/* ── RESPONSIVE UTILITIES ── */
+@media (max-width: 768px) {
+  .section-padding { padding-left: 24px !important; padding-right: 24px !important; }
+  .hero-overflow { overflow: hidden !important; }
+}

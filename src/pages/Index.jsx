@@ -497,7 +497,7 @@ function Index() {
       <div style={{ flex: 1 }} />
 
       {/* Kanan — teks + email */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {/* Animasi kata per kata */}
         <motion.div
           initial="hidden"
@@ -556,7 +556,7 @@ function Index() {
           style={{
             fontFamily: 'Plus Jakarta Sans',
             fontSize: 'clamp(14px, 1.2vw, 18px)',
-            fontWeight: 500,
+            fontWeight: 600,
             color: '#1A1814',
             textDecoration: 'underline',
             textUnderlineOffset: '4px',
