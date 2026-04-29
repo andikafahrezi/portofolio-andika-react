@@ -48,7 +48,7 @@ function Works() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
           style={{
-            fontFamily: 'Bricolage Grotesque',
+            fontFamily: 'Plus Jakarta Sans',
             fontWeight: 600,
             fontSize: 'clamp(60px, 10vw, 220px)',
             color: '#1A1814',
