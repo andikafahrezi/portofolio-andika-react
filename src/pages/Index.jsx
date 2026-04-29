@@ -166,7 +166,7 @@ function Index() {
       </section>
 
       {/* ── BIO ── */}
-      <section style={{ padding: '140px 48px 140px', backgroundColor: '#F5F2EE', borderBottom: '0.5px solid #D4CFC8' }}>
+      <section style={{ padding: '140px 48px 140px', backgroundColor: '#fff', borderBottom: '0.5px solid #D4CFC8' }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -215,7 +215,7 @@ function Index() {
       </section>
 
     {/* ── SELECTED WORKS ── */}
-    <section style={{ backgroundColor: '#F5F2EE' }}>
+    <section style={{ backgroundColor: '#fff' }}>
 
       {/* Section Title */}
       <div style={{
@@ -223,7 +223,7 @@ function Index() {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '16px 48px',
-        backgroundColor: '#F5F2EE',
+        backgroundColor: '#fff',
         // borderBottom: '0.5px solid #D4CFC8',
       }}>
         <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: '#999', letterSpacing: '0.15em' }}>
@@ -249,12 +249,12 @@ function Index() {
             flexDirection: 'column',
           }}
           onMouseEnter={e => {
-            e.currentTarget.style.backgroundColor = '#F5F2EE'
+            e.currentTarget.style.backgroundColor = '#Fff'
             const titles = e.currentTarget.querySelectorAll('.proj-title')
             titles.forEach(t => t.style.color = '#E8650A')
           }}
           onMouseLeave={e => {
-            e.currentTarget.style.backgroundColor = '#F5F2EE'
+            e.currentTarget.style.backgroundColor = '#fff'
             const titles = e.currentTarget.querySelectorAll('.proj-title')
             titles.forEach(t => t.style.color = '#1A1814')
           }}
@@ -269,7 +269,7 @@ function Index() {
               alignItems: 'center',
               gap: '24px',
               padding: '16px 48px',
-              backgroundColor: '#F5F2EE',
+              backgroundColor: '#Fff',
               // borderBottom: '0.5px solid #D4CFC8',
               transition: 'background 0.3s ease',
               justifyContent: 'space-between',
@@ -376,7 +376,7 @@ function Index() {
     </section>
 
     {/* ── SKILLS ── */}
-    <section style={{ padding: '140px 48px 140px', backgroundColor: '#F5F2EE', borderTop: '0.5px solid #D4CFC8', borderBottom: '0.5px solid #D4CFC8' }}>
+    <section style={{ padding: '140px 48px 140px', backgroundColor: '#fff', borderBottom: '0.5px solid #D4CFC8' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: '80px', alignItems: 'flex-start' }}>
         
         {/* Left side — Label + Description */}
@@ -447,7 +447,7 @@ function Index() {
     </section>
 
     {/* ── PERSONAL DOCUMENTATION ── */}
-    <section style={{ padding: '140px 0 140px 0', backgroundColor: '#F5F2EE', overflow: 'hidden' }}>
+    <section style={{ padding: '140px 0 140px 0', backgroundColor: '#Fff', overflow: 'hidden' }}>
       <style>{`
         @keyframes scroll-left {
           0% {
@@ -491,7 +491,7 @@ function Index() {
       padding: '140px 48px',
       borderTop: '0.5px solid #D4CFC8',
       borderBottom: '0.5px solid #D4CFC8',
-      backgroundColor: '#F5F2EE',
+      backgroundColor: '#Fff',
     }}>
       {/* Kiri — kosong */}
       <div style={{ flex: 1 }} />
@@ -573,7 +573,7 @@ function Index() {
       justifyContent: 'space-between',
       alignItems: 'center',
       padding: '24px 48px',
-      backgroundColor: '#F5F2EE',
+      backgroundColor: '#Fff',
     }}>
       <span style={{
         fontFamily: 'Geist Mono',

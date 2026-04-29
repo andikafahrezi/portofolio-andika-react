@@ -2,6 +2,10 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Navbar from '../components/Navbar'
 
+const WORD_STAGGER = 0.04
+const WORD_DURATION = 0.45
+const WORD_Y = 14
+
 const projects = [
   {
     num: '01',
@@ -29,11 +33,62 @@ const projects = [
   },
 ]
 
+function WordReveal({
+  as = 'div',
+  text,
+  style,
+  className,
+  amount = WORD_STAGGER,
+  duration = WORD_DURATION,
+  y = WORD_Y,
+  delay = 0,
+}) {
+  const MotionTag = motion[as]
+  const words = String(text).split(' ')
+
+  return (
+    <MotionTag
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.4 }}
+      variants={{
+        hidden: { opacity: 1 },
+        visible: {
+          opacity: 1,
+          transition: {
+            delayChildren: delay,
+            staggerChildren: amount,
+          },
+        },
+      }}
+      style={style}
+      className={className}
+    >
+      {words.map((word, index) => (
+        <motion.span
+          key={`${word}-${index}`}
+          variants={{
+            hidden: { opacity: 0.001, y },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: { duration, ease: 'easeOut' },
+            },
+          }}
+          style={{ display: 'inline-block', marginRight: '0.28em' }}
+        >
+          {word}
+        </motion.span>
+      ))}
+    </MotionTag>
+  )
+}
+
 function Works() {
   const [hoveredIndex, setHoveredIndex] = useState(null)
 
   return (
-    <div style={{ backgroundColor: '#F5F2EE', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: '#Fff', minHeight: '100vh' }}>
       <Navbar />
 
       {/* ── HEADER ── */}
@@ -48,7 +103,7 @@ function Works() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
           style={{
-            fontFamily: 'Plus Jakarta Sans',
+            fontFamily: 'Onest',
             fontWeight: 600,
             fontSize: 'clamp(60px, 10vw, 220px)',
             color: '#1A1814',
@@ -111,7 +166,7 @@ function Works() {
               justifyContent: 'space-between',
               padding: '14px 48px',
               borderBottom: '0.5px solid #D4CFC8',
-              backgroundColor: hoveredIndex === index ? '#EDEAE5' : '#F5F2EE',
+              backgroundColor: hoveredIndex === index ? '#EDEAE5' : '#Fff',
               transition: 'background-color 0.3s ease',
               cursor: 'pointer',
             }}
@@ -121,43 +176,62 @@ function Works() {
               <span style={{ fontFamily: 'Geist Mono', fontSize: '10px', color: '#E8650A' }}>
                 {project.num}
               </span>
-              <span style={{
-                fontFamily: 'Onest',
-                fontWeight: 500,
-                fontSize: 'clamp(8px, 1vw, 12px)',
-                color: '#1A1814',
-                letterSpacing: '0.05em',
-                textTransform: 'uppercase',
-              }}>
-                {project.title}
-              </span>
+              <WordReveal
+                as="div"
+                text={project.title}
+                amount={0.05}
+                duration={0.42}
+                y={12}
+                delay={0}
+                style={{
+                  fontFamily: 'Onest',
+                  fontWeight: 600,
+                  fontSize: 'clamp(8px, 1vw, 12px)',
+                  color: '#1A1814',
+                  letterSpacing: '0.05em',
+                  textTransform: 'uppercase',
+                }}
+              />
             </div>
 
             {/* Tags */}
             <div style={{ display: 'flex', gap: '16px', flex: 2 }}>
-              {project.tags.map(tag => (
-                <span key={tag} style={{
-                  fontFamily: 'Geist Mono',
-                  fontSize: '8px',
-                  color: '#888',
-                  letterSpacing: '0.05em',
-                }}>
-                  {tag}
-                </span>
+              {project.tags.map((tag, tagIndex) => (
+                <WordReveal
+                  key={tag}
+                  as="div"
+                  text={tag}
+                  amount={0.025}
+                  duration={0.38}
+                  y={10}
+                  delay={0.14 + tagIndex * 0.06}
+                  style={{
+                    fontFamily: 'Geist Mono',
+                    fontSize: '8px',
+                    color: '#888',
+                    letterSpacing: '0.05em',
+                  }}
+                />
               ))}
             </div>
 
             {/* Tahun */}
-            <span style={{
-              fontFamily: 'Geist Mono',
-              fontSize: '12px',
-              color: '#1A1814',
-              fontWeight: 500,
-              textAlign: 'right',
-              flex: 0.5,
-            }}>
-              {project.year}
-            </span>
+            <WordReveal
+              as="div"
+              text={project.year}
+              amount={0.08}
+              duration={0.35}
+              y={10}
+              delay={0.34}
+              style={{
+                fontFamily: 'Geist Mono',
+                fontSize: '12px',
+                color: '#1A1814',
+                fontWeight: 500,
+                textAlign: 'right',
+                flex: 0.5,
+              }}
+            />
 
             {/* Overlay card */}
             {hoveredIndex === index && (
@@ -228,9 +302,9 @@ function Works() {
       <section style={{
         display: 'flex',
         padding: '140px 48px',
-        borderTop: '0.5px solid #D4CFC8',
+        // borderTop: '0.5px solid #D4CFC8',
         borderBottom: '0.5px solid #D4CFC8',
-        backgroundColor: '#F5F2EE',
+        backgroundColor: '#Fff',
       }}>
         <div style={{ flex: 1 }} />
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -297,7 +371,7 @@ function Works() {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '24px 48px',
-        backgroundColor: '#F5F2EE',
+        backgroundColor: '#fff',
       }}>
         <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: '#1A1814', letterSpacing: '0.08em' }}>
           ANDIKA FAHREZI®
