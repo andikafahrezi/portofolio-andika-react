@@ -37,7 +37,7 @@ function AnimatedRoutes() {
 function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[#F5F2EE] text-[#1A1814]">
+      <div className="min-h-screen bg-white text-[#1A1814]">
         <main>
           <AnimatedRoutes />
         </main>
