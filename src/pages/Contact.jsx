@@ -37,6 +37,7 @@ function Contact() {
 
   async function handleSubmit(event) {
     event.preventDefault()
+    const form = event.currentTarget
 
     if (!accessKey) {
       setResult('Form belum aktif. Isi VITE_WEB3FORMS_ACCESS_KEY dulu.')
@@ -46,28 +47,45 @@ function Contact() {
     setIsSubmitting(true)
     setResult('Sending...')
 
-    const formData = new FormData(event.currentTarget)
-    formData.append('access_key', accessKey)
-    formData.append('subject', 'New Contact Message from Andika Portfolio')
-    formData.append('from_name', 'Andika Portfolio')
-    formData.append('replyto', formData.get('email') || '')
+    const formData = new FormData(form)
+    const senderName = String(formData.get('name') || '').trim()
+    const senderEmail = String(formData.get('email') || '').trim()
+    const senderMessage = String(formData.get('message') || '').trim()
+
+    const payload = {
+      access_key: accessKey,
+      subject: `New Portfolio Inquiry from ${senderName || 'Website Visitor'}`,
+      from_name: 'Andika Fahrezi Portfolio Contact Form',
+      name: senderName,
+      email: senderEmail,
+      message: senderMessage,
+      replyto: senderEmail,
+      source: 'andikafahrezi portfolio website',
+      page: '/contact',
+      botcheck: formData.get('botcheck') || '',
+    }
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(payload),
       })
 
       const data = await response.json()
 
-      if (data.success) {
-        setResult('Message sent successfully.')
-        event.currentTarget.reset()
+      if (response.ok && data.success) {
+        setResult(data.message || 'Message sent successfully.')
+        form.reset()
       } else {
         setResult(data.message || 'Something went wrong while sending the form.')
       }
-    } catch {
-      setResult('Network error. Please try again.')
+    } catch (error) {
+      setResult('Network error. Please check internet, adblocker, or browser console.')
+      console.error('Contact form submit error:', error)
     } finally {
       setIsSubmitting(false)
     }
