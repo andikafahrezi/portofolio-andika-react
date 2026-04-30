@@ -302,7 +302,7 @@ function Index() {
                     key={i}
                     className="proj-title"
                     variants={{
-                      hidden: { opacity: 0, y: 20 },
+                      hidden: { opacity: 0, y: 30 },
                       visible: {
                         opacity: 1,
                         y: 0,

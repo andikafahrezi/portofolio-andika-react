@@ -186,7 +186,7 @@ function Info() {
           <WordReveal
             as="h1"
             text="Bachelor of Applied Science - Digital Creative Multimedia - Telkom University."
-            amount={0.035}
+            amount={0.1}
             duration={0.55}
             y={22}
             style={{
@@ -220,7 +220,7 @@ function Info() {
             <WordReveal
               as="p"
               text="A passionate IT & UI/UX designer who loves about digital experiences, product design, smart tech and playing badminton."
-              amount={0.03}
+              amount={0.05}
               duration={0.5}
               y={16}
               style={{ margin: 0 }}
@@ -229,7 +229,7 @@ function Info() {
             <WordReveal
               as="p"
               text="I have a background in Computer Technology, Diploma, and relevant experience in the field of information technology. During my studies, I contributed to research and development projects in the fields of IoT and Embedded Systems, which involved design, development, and analysis of results data."
-              amount={0.022}
+              amount={0.05}
               duration={0.5}
               y={16}
               style={{
@@ -251,9 +251,9 @@ function Info() {
                 key={skill}
                 as="h3"
                 text={skill}
-                amount={0.05}
+                amount={0.1}
                 duration={0.5}
-                y={14}
+                y={16}
                 style={{
                   fontFamily: 'Plus Jakarta Sans',
                   fontSize: 'clamp(18px, 2vw, 30px)',
@@ -280,7 +280,7 @@ function Info() {
               letterSpacing: '0.08em',
             }}
           >
-            ANDIKA FAHREZI
+            ANDIKA FAHREZI®
           </span>
           <span
             style={{

@@ -2,6 +2,10 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Navbar from '../components/Navbar'
 
+const WORD_STAGGER = 0.03
+const WORD_DURATION = 0.5
+const WORD_Y = 16
+
 const contactItems = [
   {
     label: 'EMAIL',
@@ -19,15 +23,64 @@ const contactItems = [
 ]
 
 const socialLinks = [
-  { label: 'Instagram', href: 'https://instagram.com/' },
-  { label: 'Twitter (X)', href: 'https://x.com/' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/' },
+  { label: 'Instagram', href: 'https://instagram.com/andikafahrezii' },
+  { label: 'Twitter (X)', href: 'https://x.com/andikafahrezi_' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/andikafahrezi' },
 ]
 
 const directContacts = [
   { label: 'Email', value: 'andfrz09@gmail.com', href: 'mailto:andfrz09@gmail.com' },
   { label: 'Phone', value: '+62 819-7722-8896', href: 'tel:+6281977228896' },
 ]
+
+function WordReveal({
+  as = 'div',
+  text,
+  style,
+  className,
+  amount = WORD_STAGGER,
+  duration = WORD_DURATION,
+  y = WORD_Y,
+}) {
+  const MotionTag = motion[as]
+  const words = String(text).split(' ')
+
+  return (
+    <MotionTag
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={{
+        hidden: { opacity: 1 },
+        visible: {
+          opacity: 1,
+          transition: {
+            staggerChildren: amount,
+          },
+        },
+      }}
+      style={style}
+      className={className}
+    >
+      {words.map((word, index) => (
+        <motion.span
+          key={`${word}-${index}`}
+          variants={{
+            hidden: { opacity: 0.001, y },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: { duration, ease: 'easeOut' },
+            },
+          }}
+          style={{ display: 'inline-block', marginRight: '0.28em' }}
+        >
+          {word}
+        </motion.span>
+      ))}
+    </MotionTag>
+  )
+}
 
 function Contact() {
   const [result, setResult] = useState('')
@@ -117,7 +170,7 @@ function Contact() {
           <h1
             style={{
               fontFamily: 'Bricolage Grotesque',
-              fontWeight: 700,
+              fontWeight: 600,
               fontSize: 'clamp(56px, 10vw, 180px)',
               color: '#1A1814',
               lineHeight: 0.95,
@@ -138,8 +191,8 @@ function Contact() {
               lineHeight: 1.7,
             }}
           >
-            OPEN FOR PROFESSIONAL OPPORTUNITIES, COLLABORATION, AND CONVERSATIONS ABOUT
-            DIGITAL WORK.
+            OPEN FOR PROFESSIONAL OPPORTUNITIES, AND CONVERSATIONS ABOUT
+            DESIGN WORK.
           </p>
         </motion.div>
       </section>
@@ -173,7 +226,12 @@ function Contact() {
             LET&apos;S CONNECT
           </span>
 
-          <p
+          <WordReveal
+            as="p"
+            text="If you are looking for someone who cares about both clarity and presentation, I would be happy to discuss design, support, or technology-related opportunities."
+            amount={0.05}
+            duration={0.5}
+            y={16}
             style={{
               fontFamily: 'Plus Jakarta Sans',
               fontSize: 'clamp(24px, 3.2vw, 44px)',
@@ -182,10 +240,7 @@ function Contact() {
               lineHeight: 1.25,
               maxWidth: '760px',
             }}
-          >
-            If you are looking for someone who cares about both clarity and presentation, I
-            would be happy to discuss design, support, or technology-related opportunities.
-          </p>
+          />
         </motion.div>
 
         <motion.div
@@ -299,8 +354,7 @@ function Contact() {
                 maxWidth: '720px',
               }}
             >
-              Building a portfolio that reflects my growth in frontend, interface thinking,
-              and digital problem solving.
+              Work in PT. Sintesa Inti Prestasi as an UI/UX Designer.
             </p>
             <p
               style={{
@@ -338,7 +392,7 @@ function Contact() {
             style={{
               fontFamily: 'Geist Mono',
               fontSize: '11px',
-              color: '#999',
+              color: '#E8650A',
               letterSpacing: '0.12em',
               display: 'block',
               marginBottom: '24px',
@@ -347,20 +401,21 @@ function Contact() {
             STAY CLOSE TO US
           </span>
 
-          <p
+          <WordReveal
+            as="p"
+            text="Let’s stay in touch and create incredible things together, turning ideas into reality with passion, creativity, and innovation"
+            amount={0.09}
+            duration={0.5}
+            y={16}
             style={{
               fontFamily: 'Plus Jakarta Sans',
-              fontSize: 'clamp(24px, 3vw, 42px)',
+              fontSize: 'clamp(24px, 3.2vw, 44px)',
               fontWeight: 600,
               color: '#1A1814',
               lineHeight: 1.25,
-              maxWidth: '680px',
-              margin: 0,
+              maxWidth: '760px',
             }}
-          >
-            Let&apos;s stay in touch and create incredible things together, turning ideas
-            into reality with passion, creativity, and innovation.
-          </p>
+          />
         </motion.div>
 
         <motion.form
@@ -388,7 +443,7 @@ function Contact() {
                 style={{
                   fontFamily: 'Geist Mono',
                   fontSize: '11px',
-                  color: '#999',
+                  color: '#E8650A',
                   letterSpacing: '0.12em',
                   marginBottom: '12px',
                 }}
@@ -419,7 +474,7 @@ function Contact() {
               style={{
                 fontFamily: 'Geist Mono',
                 fontSize: '11px',
-                color: '#999',
+                color: '#E8650A',
                 letterSpacing: '0.12em',
                 marginBottom: '12px',
               }}
@@ -601,7 +656,7 @@ function Contact() {
             letterSpacing: '0.08em',
           }}
         >
-          ANDIKA FAHREZI
+          ANDIKA FAHREZI®
         </span>
         <span
           style={{
