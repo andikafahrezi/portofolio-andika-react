@@ -14,13 +14,6 @@ const WORD_DURATION = 0.55
 const WORD_Y = 18
 const WORD_EASE = 'easeOut'
 
-const textAnimation = {
-  initial: { opacity: 0.001, y: 10 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.8, delay: 0.075, ease: 'easeOut' },
-}
-
 function WordReveal({
   as = 'div',
   text,
@@ -246,7 +239,7 @@ function Info() {
           <SectionLabel>SKILLS</SectionLabel>
 
           <div className="info-skills">
-            {skills.map((skill, index) => (
+            {skills.map((skill) => (
               <WordReveal
                 key={skill}
                 as="h3"

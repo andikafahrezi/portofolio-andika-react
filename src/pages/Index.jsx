@@ -1,6 +1,8 @@
-import { motion } from 'framer-motion'
+import { motion as Motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 import Navbar from '../components/Navbar'
+import { projects } from '../data/projects'
 
 function Gallery({ images }) {
   // Duplicate untuk seamless infinite loop
@@ -49,6 +51,32 @@ function Gallery({ images }) {
         ))}
       </div>
     </div>
+  )
+}
+
+function ProjectPreview({ project }) {
+  const hero = project.layout?.hero
+
+  if (hero?.type === 'video') {
+    return (
+      <video
+        src={hero.src}
+        poster={hero.poster}
+        autoPlay
+        muted
+        loop
+        playsInline
+        style={{ width: '100%', height: '100%', objectFit: hero.objectFit || 'cover', objectPosition: hero.objectPosition || 'center', display: 'block' }}
+      />
+    )
+  }
+
+  return (
+    <img
+      src={hero?.src || project.img}
+      alt={project.title}
+      style={{ width: '100%', height: '100%', objectFit: hero?.objectFit || 'cover', objectPosition: hero?.objectPosition || 'center', display: 'block' }}
+    />
   )
 }
 
@@ -142,7 +170,7 @@ function Index() {
         }} />
 
         {/* Nama — di atas overlay */}
-        <motion.div
+        <Motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
@@ -161,13 +189,13 @@ function Index() {
           >
             ANDIKA FAHREZI
           </h1>
-        </motion.div>
+        </Motion.div>
 
       </section>
 
       {/* ── BIO ── */}
       <section style={{ padding: '140px 48px 140px', backgroundColor: '#fff', borderBottom: '0.5px solid #D4CFC8' }}>
-        <motion.div
+        <Motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -197,7 +225,7 @@ function Index() {
             'in', 'Digital', 'Creative', 'Multimedia.', 'with', 'experience', 'in', 'smart', 'technology',
             'research,', 'IoT', 'data', 'analysis,', 'and', 'strong', 'skills', 'in', 'UI/UX', 'design', 'using', 'Figma.'
           ].map((word, index) => (
-            <motion.span
+            <Motion.span
               key={`${word}-${index}`}
               variants={{
                 hidden: { opacity: 0, y: 30 },
@@ -209,9 +237,9 @@ function Index() {
               }}
             >
               {word}
-            </motion.span>
+            </Motion.span>
           ))}
-        </motion.div>
+        </Motion.div>
       </section>
 
     {/* ── SELECTED WORKS ── */}
@@ -235,13 +263,9 @@ function Index() {
       </div>
 
       {/* Project rows */}
-      {[
-        { num: '01', title: 'Smart Mannequin Research Project', type: 'IoT · Research', year: '2022', img: '/images/sm photo.png' },
-        { num: '02', title: 'SM Monitoring Dashboard UI Design', type: 'UI Design · Dashboard', year: '2023', img: '/images/dashboard photo.png' },
-        { num: '03', title: 'VR Research Product Overview', type: 'VR · UI Design', year: '2024', img: '/images/vr photo.png' },
-      ].map((project) => (
-        <a
-          href="/works"
+      {projects.map((project) => (
+        <Link
+          to={`/${project.slug}`}
           key={project.num}
           style={{
             borderBottom: '0.5px solid #D4CFC8',
@@ -280,7 +304,7 @@ function Index() {
               <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: '#E8650A', minWidth: '24px' }}>
                 {project.num}
               </span>
-              <motion.div
+              <Motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -298,7 +322,7 @@ function Index() {
                 }}
               >
                 {project.title.split(' ').map((word, i) => (
-                  <motion.span
+                  <Motion.span
                     key={i}
                     className="proj-title"
                     variants={{
@@ -318,14 +342,14 @@ function Index() {
                     }}
                   >
                     {word}
-                  </motion.span>
+                  </Motion.span>
                 ))}
-              </motion.div>
+              </Motion.div>
             </div>
 
             {/* Right side: tags */}
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              {project.type.split(' · ').map(tag => (
+              {project.shortType.split(' · ').map(tag => (
                 <span key={tag} style={{
                   fontFamily: 'Geist Mono',
                   fontSize: '10px',
@@ -363,14 +387,10 @@ function Index() {
               borderRadius: '6px',
               overflow: 'hidden',
             }}>
-              <img
-                src={project.img}
-                alt={project.title}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
+              <ProjectPreview project={project} />
             </div>
           </div>
-        </a>
+        </Link>
       ))}
 
     </section>
@@ -381,7 +401,7 @@ function Index() {
         
         {/* Left side — Label + Description */}
         <div style={{ flex: 1, minWidth: '300px' }}>
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
@@ -406,12 +426,12 @@ function Index() {
             }}>
               Crafting seamless digital experiences from concept to execution.
             </p>
-          </motion.div>
+          </Motion.div>
         </div>
 
         {/* Right side — Skills List */}
         <div style={{ flex: 1, minWidth: '300px' }}>
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
@@ -440,7 +460,7 @@ function Index() {
                 </h3>
               </div>
             ))}
-          </motion.div>
+          </Motion.div>
         </div>
 
       </div>
@@ -459,7 +479,7 @@ function Index() {
         }
       `}</style>
       <div style={{ paddingLeft: '48px', paddingRight: '48px', paddingBottom: '64px' }}>
-        <motion.div
+        <Motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
@@ -474,7 +494,7 @@ function Index() {
           }}>
             PERSONAL DOCUMENTATION OF MY HOBBIES AND ACTIVITIES
           </span>
-        </motion.div>
+        </Motion.div>
       </div>
 
       <Gallery images={[
@@ -499,7 +519,7 @@ function Index() {
       {/* Kanan — teks + email */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {/* Animasi kata per kata */}
-        <motion.div
+        <Motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -530,7 +550,7 @@ function Index() {
             'in', 'the', 'field', 'of', 'smart', 'technology',
             'and', 'design.'
           ].map((word, index) => (
-            <motion.span
+            <Motion.span
               key={`${word}-${index}`}
               variants={{
                 hidden: { opacity: 0, y: 30 },
@@ -542,12 +562,12 @@ function Index() {
               }}
             >
               {word}
-            </motion.span>
+            </Motion.span>
           ))}
-        </motion.div>
+        </Motion.div>
 
         {/* email */}
-        <motion.a
+        <Motion.a
           href="mailto:andfrz09@gmail.com"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -563,7 +583,7 @@ function Index() {
           }}
         >
           andfrz09@gmail.com
-        </motion.a>
+        </Motion.a>
       </div>
     </section>
 

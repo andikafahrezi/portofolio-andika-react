@@ -1,37 +1,12 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Navbar from '../components/Navbar'
+import { projects } from '../data/projects'
 
 const WORD_STAGGER = 0.04
 const WORD_DURATION = 0.45
 const WORD_Y = 14
-
-const projects = [
-  {
-    num: '01',
-    title: 'Smart Mannequin Research Project',
-    tags: ['IOT HARDWARE ENGINEER', 'DATA ANALYST', 'RESEARCH'],
-    year: '2022',
-    img: null,
-    overlayLabel: 'SMART MANNEQUIN',
-  },
-  {
-    num: '02',
-    title: 'SM Monitoring Dashboard UI Design',
-    tags: ['UI DESIGN', 'DASHBOARD DESIGN', 'DATA VISUALIZATION'],
-    year: '2023',
-    img: null,
-    overlayLabel: 'SM DASHBOARD',
-  },
-  {
-    num: '03',
-    title: 'VR Research Product Overview',
-    tags: ['VIRTUAL REALITY', 'VR UI DESIGN', 'OVERVIEW'],
-    year: '2024',
-    img: null,
-    overlayLabel: 'VR RESEARCH',
-  },
-]
 
 function WordReveal({
   as = 'div',
@@ -155,8 +130,9 @@ function Works() {
 
         {/* Project rows */}
         {projects.map((project, index) => (
-          <div
+          <Link
             key={project.num}
+            to={`/${project.slug}`}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
             style={{
@@ -169,6 +145,7 @@ function Works() {
               backgroundColor: hoveredIndex === index ? '#EDEAE5' : '#Fff',
               transition: 'background-color 0.3s ease',
               cursor: 'pointer',
+              textDecoration: 'none',
             }}
           >
             {/* Nama project */}
@@ -250,51 +227,46 @@ function Works() {
                   // borderRadius: '8px',
                   overflow: 'hidden',
                   zIndex: 20,
-                  backgroundColor: '#1A1814',
-                  display: 'flex',
-                  alignItems: 'flex-end',
-                  padding: '20px',
+                  backgroundColor: '#FFFFFF',
                 }}
               >
-                {/* Gambar placeholder — ganti src saat sudah punya file */}
-                {project.img && (
+                {/* placeholder */}
+                {project.layout?.hero?.type === 'video' ? (
+                  <video
+                    src={project.layout.hero.src}
+                    poster={project.layout.hero.poster}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: project.layout.hero.objectFit || 'cover',
+                      objectPosition: project.layout.hero.objectPosition || 'center',
+                      display: 'block',
+                    }}
+                  />
+                ) : (
                   <img
-                    src={project.img}
+                    src={project.layout?.hero?.src || project.img}
                     alt={project.title}
                     style={{
                       position: 'absolute',
                       inset: 0,
                       width: '100%',
                       height: '100%',
-                      objectFit: 'cover',
-                      opacity: 0.6,
+                      objectFit: project.layout?.hero?.objectFit || 'cover',
+                      objectPosition: project.layout?.hero?.objectPosition || 'center',
+                      display: 'block',
                     }}
                   />
                 )}
-
-                {/* Dark overlay */}
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  backgroundColor: 'rgba(0,0,0,0.5)',
-                }} />
-
-                {/* Label */}
-                <span style={{
-                  position: 'relative',
-                  zIndex: 1,
-                  fontFamily: 'Bricolage Grotesque',
-                  fontWeight: 800,
-                  fontSize: 'clamp(20px, 2vw, 28px)',
-                  color: 'white',
-                  letterSpacing: '-0.01em',
-                  textTransform: 'uppercase',
-                }}>
-                  {project.overlayLabel}
-                </span>
               </motion.div>
             )}
-          </div>
+          </Link>
         ))}
       </section>
 

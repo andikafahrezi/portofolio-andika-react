@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion as Motion, AnimatePresence } from 'framer-motion'
 
 const navLinks = [
   { label: 'Index', to: '/' },
@@ -27,8 +27,6 @@ function Navbar() {
     const iv = setInterval(update, 1000)
     return () => clearInterval(iv)
   }, [])
-
-  useEffect(() => { setMenuOpen(false) }, [location])
 
   const textColor = isIndexPage ? 'white' : '#1A1814'
   const textMuted = isIndexPage ? 'rgba(255,255,255,0.6)' : 'rgba(26,24,20,0.5)'
@@ -100,7 +98,7 @@ function Navbar() {
       {/* ── MOBILE MENU FULLSCREEN ── */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -124,6 +122,7 @@ function Navbar() {
                 <Link
                   key={link.label}
                   to={link.to}
+                  onClick={() => setMenuOpen(false)}
                   style={{
                     fontFamily: 'Bricolage Grotesque',
                     fontWeight: 800,
@@ -143,7 +142,7 @@ function Navbar() {
               <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: 'rgba(255,255,255,0.4)' }}>{time}</span>
               <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: 'rgba(255,255,255,0.4)' }}>Indonesia</span>
             </div>
-          </motion.div>
+          </Motion.div>
         )}
       </AnimatePresence>
     </>
