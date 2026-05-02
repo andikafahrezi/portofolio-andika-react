@@ -64,10 +64,49 @@ function Works() {
 
   return (
     <div style={{ backgroundColor: '#Fff', minHeight: '100vh' }}>
+      <style>{`
+        @media (max-width: 720px) {
+          .works-header {
+            padding: 96px 20px 48px !important;
+            flex-direction: column;
+            align-items: flex-start !important;
+            gap: 12px;
+          }
+          .works-header-right {
+            order: -1;
+          }
+          .works-list-header {
+            padding: 12px 20px !important;
+            display: none;
+          }
+          .works-list-item {
+            padding: 18px 20px !important;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-start !important;
+          }
+          .works-contact-cta {
+            padding: 96px 20px !important;
+            flex-direction: column;
+            gap: 24px !important;
+          }
+          .works-footer {
+            padding: 18px 20px !important;
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+          }
+          .works-overlay-card {
+            right: 16px !important;
+            width: 200px !important;
+            height: 200px !important;
+          }
+        }
+      `}</style>
       <Navbar />
 
       {/* ── HEADER ── */}
-      <section style={{
+      <section className="works-header" style={{
         padding: '120px 48px 80px',
         display: 'flex',
         justifyContent: 'space-between',
@@ -111,19 +150,19 @@ function Works() {
       <section>
 
         {/* Header kolom */}
-        <div style={{
+        <div className="works-list-header" style={{
           display: 'flex',
           justifyContent: 'space-between',
           padding: '12px 48px',
           borderBottom: '0.5px solid #D4CFC8',
         }}>
-          <span style={{ fontFamily: 'Geist Mono', fontSize: '10px', color: '#E8650A', letterSpacing: '0.15em', flex: 2 }}>
+          <span className="works-col-name" style={{ fontFamily: 'Geist Mono', fontSize: '10px', color: '#E8650A', letterSpacing: '0.15em', flex: 2 }}>
             # NAME ✦
           </span>
-          <span style={{ fontFamily: 'Geist Mono', fontSize: '10px', color: '#E8650A', letterSpacing: '0.15em', flex: 2 }}>
+          <span className="works-col-type" style={{ fontFamily: 'Geist Mono', fontSize: '10px', color: '#E8650A', letterSpacing: '0.15em', flex: 2 }}>
             TYPE ✦
           </span>
-          <span style={{ fontFamily: 'Geist Mono', fontSize: '10px', color: '#E8650A', letterSpacing: '0.15em', textAlign: 'right', flex: 0.5 }}>
+          <span className="works-col-year" style={{ fontFamily: 'Geist Mono', fontSize: '10px', color: '#E8650A', letterSpacing: '0.15em', textAlign: 'right', flex: 0.5 }}>
             YEAR ✦
           </span>
         </div>
@@ -133,6 +172,7 @@ function Works() {
           <Link
             key={project.num}
             to={`/${project.slug}`}
+            className="works-list-item"
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
             style={{
@@ -213,6 +253,7 @@ function Works() {
             {/* Overlay card */}
             {hoveredIndex === index && (
               <motion.div
+                className="works-overlay-card"
                 initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.92 }}
@@ -220,11 +261,10 @@ function Works() {
                 style={{
                   position: 'absolute',
                   right: '120px',
-                  // top: '0',
+                  top: '50%',
                   transform: 'translateY(-50%)',
                   width: '300px',
                   height: '300px',
-                  // borderRadius: '8px',
                   overflow: 'hidden',
                   zIndex: 20,
                   backgroundColor: '#FFFFFF',
@@ -271,10 +311,9 @@ function Works() {
       </section>
 
       {/* ── CONTACT CTA ── */}
-      <section style={{
+      <section className="works-contact-cta" style={{
         display: 'flex',
         padding: '140px 48px',
-        // borderTop: '0.5px solid #D4CFC8',
         borderBottom: '0.5px solid #D4CFC8',
         backgroundColor: '#Fff',
       }}>
@@ -338,7 +377,7 @@ function Works() {
       </section>
 
       {/* ── FOOTER ── */}
-      <footer style={{
+      <footer className="works-footer" style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',

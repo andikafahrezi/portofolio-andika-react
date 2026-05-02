@@ -231,11 +231,18 @@ function ProjectDetail() {
           padding: 22px 48px 28px;
         }
 
+        /* Tablet Responsive */
         @media (max-width: 1024px) {
+          .detail-shell {
+            padding-left: 32px;
+            padding-right: 32px;
+          }
+
           .detail-intro {
             grid-template-columns: 1fr;
-            gap: 28px;
-            padding-bottom: 72px;
+            gap: 32px;
+            padding-top: 36px;
+            padding-bottom: 80px;
           }
 
           .detail-wireframe,
@@ -246,32 +253,83 @@ function ProjectDetail() {
           .detail-cta {
             gap: 24px;
           }
+
+          .detail-hero {
+            padding-left: 32px !important;
+            padding-right: 32px !important;
+          }
         }
 
+        /* Mobile Responsive */
         @media (max-width: 720px) {
+          .detail-shell {
+            padding-left: 20px;
+            padding-right: 20px;
+          }
+
+          .detail-title {
+            padding-top: 100px;
+            padding-bottom: 24px;
+          }
+
+          .detail-hero {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+          }
+
+          .detail-intro {
+            gap: 24px;
+            padding-top: 28px;
+            padding-bottom: 56px;
+          }
+
+          .detail-gallery-two,
+          .detail-wireframe,
+          .detail-more-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .detail-gallery-two {
+            gap: 16px;
+            padding-bottom: 32px;
+          }
+
+          .detail-wireframe {
+            gap: 16px;
+            padding-bottom: 48px;
+          }
+
+          .detail-more {
+            padding-top: 48px;
+          }
+
+          .detail-more-grid {
+            gap: 16px;
+            padding-top: 20px;
+            padding-bottom: 64px;
+          }
+
+          .detail-cta {
+            padding-bottom: 64px;
+          }
+
+          .detail-footer {
+            padding: 18px 20px 22px;
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+          }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 380px) {
           .detail-shell {
             padding-left: 16px;
             padding-right: 16px;
           }
 
           .detail-title {
-            padding-top: 112px;
-            padding-bottom: 20px;
-          }
-
-          .detail-hero {
-            padding-left: 16px !important;
-            padding-right: 16px !important;
-          }
-
-          .detail-gallery-two,
-          .detail-more-grid {
-            grid-template-columns: 1fr;
-          }
-
-          .detail-footer {
-            padding-left: 16px;
-            padding-right: 16px;
+            padding-top: 88px;
           }
         }
       `}</style>
@@ -312,7 +370,7 @@ function ProjectDetail() {
             background: 'transparent',
           }}
         >
-          <div>
+          <div style={{ width: '100%' }}>
             <MediaBlock
               media={project.layout?.hero}
               aspectRatio="1.72 / 1"

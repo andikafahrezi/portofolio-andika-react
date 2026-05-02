@@ -146,9 +146,48 @@ function Contact() {
 
   return (
     <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
+      <style>{`
+        @media (max-width: 720px) {
+          .contact-header {
+            padding: 96px 20px 48px !important;
+          }
+          .contact-intro-grid {
+            grid-template-columns: 1fr !important;
+            gap: 32px !important;
+            padding: 48px 20px 72px !important;
+          }
+          .contact-meta-grid {
+            grid-template-columns: 1fr !important;
+            gap: 32px !important;
+            padding: 48px 20px 72px !important;
+          }
+          .contact-form-grid {
+            grid-template-columns: 1fr !important;
+            gap: 32px !important;
+            padding: 48px 20px 72px !important;
+          }
+          .contact-socials-grid {
+            grid-template-columns: 1fr !important;
+            gap: 32px !important;
+            padding: 48px 20px 96px !important;
+          }
+          .contact-meta-item {
+            grid-template-columns: 1fr !important;
+            gap: 8px !important;
+            padding: 14px 0 !important;
+          }
+          .contact-footer {
+            padding: 18px 20px !important;
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+          }
+        }
+      `}</style>
       <Navbar />
 
       <section
+        className="contact-header"
         style={{
           padding: '120px 48px 72px',
           borderBottom: '0.5px solid #D4CFC8',
@@ -198,6 +237,7 @@ function Contact() {
       </section>
 
       <section
+        className="contact-intro-grid"
         style={{
           display: 'grid',
           gridTemplateColumns: 'minmax(0, 1.1fr) minmax(0, 0.9fr)',
@@ -257,6 +297,7 @@ function Contact() {
           {contactItems.map((item, index) => (
             <div
               key={item.label}
+              className="contact-meta-item"
               style={{
                 display: 'grid',
                 gridTemplateColumns: '120px minmax(0, 1fr)',
@@ -312,6 +353,7 @@ function Contact() {
       </section>
 
       <section
+        className="contact-meta-grid"
         style={{
           padding: '72px 48px 120px',
           borderBottom: '0.5px solid #D4CFC8',
@@ -373,6 +415,7 @@ function Contact() {
       </section>
 
       <section
+        className="contact-form-grid"
         style={{
           display: 'grid',
           gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
@@ -536,6 +579,7 @@ function Contact() {
       </section>
 
       <section
+        className="contact-socials-grid"
         style={{
           display: 'grid',
           gridTemplateColumns: 'minmax(0, 0.75fr) minmax(0, 1.25fr)',
@@ -640,6 +684,7 @@ function Contact() {
       </section>
 
       <footer
+        className="contact-footer"
         style={{
           display: 'flex',
           justifyContent: 'space-between',

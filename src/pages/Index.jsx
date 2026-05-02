@@ -131,7 +131,59 @@ function Index() {
 
   return (
     <div>
-      <section style={{
+      <style>{`
+        @media (max-width: 720px) {
+          .index-hero {
+            padding-bottom: 16px !important;
+          }
+          .index-bio {
+            padding: 96px 20px 96px !important;
+          }
+          .index-bio-text {
+            max-width: 100% !important;
+          }
+          .index-works-header {
+            padding: 16px 20px !important;
+          }
+          .index-works-item {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+          }
+          .index-works-header-content {
+            flex-direction: column !important;
+            gap: 16px !important;
+          }
+          .index-works-image {
+            width: 100% !important;
+            padding: 24px 20px !important;
+          }
+          .index-skills {
+            padding: 96px 20px 96px !important;
+            flex-direction: column !important;
+            gap: 48px !important;
+          }
+          .index-personal {
+            padding: 96px 0 96px 0 !important;
+          }
+          .index-personal-header {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+            padding-bottom: 48px !important;
+          }
+          .index-contact-cta {
+            padding: 96px 20px !important;
+            flex-direction: column !important;
+            gap: 24px !important;
+          }
+          .index-footer {
+            padding: 18px 20px !important;
+            flex-direction: column !important;
+            gap: 12px;
+            text-align: center;
+          }
+        }
+      `}</style>
+      <section className="index-hero" style={{
         position: 'relative',
         minHeight: '100vh',
         display: 'flex',
@@ -194,8 +246,9 @@ function Index() {
       </section>
 
       {/* ── BIO ── */}
-      <section style={{ padding: '140px 48px 140px', backgroundColor: '#fff', borderBottom: '0.5px solid #D4CFC8' }}>
+      <section className="index-bio" style={{ padding: '140px 48px 140px', backgroundColor: '#fff', borderBottom: '0.5px solid #D4CFC8' }}>
         <Motion.div
+          className="index-bio-text"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -246,13 +299,12 @@ function Index() {
     <section style={{ backgroundColor: '#fff' }}>
 
       {/* Section Title */}
-      <div style={{
+      <div className="index-works-header" style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '16px 48px',
         backgroundColor: '#fff',
-        // borderBottom: '0.5px solid #D4CFC8',
       }}>
         <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: '#999', letterSpacing: '0.15em' }}>
           SELECTED WORKS
@@ -267,6 +319,7 @@ function Index() {
         <Link
           to={`/${project.slug}`}
           key={project.num}
+          className="index-works-item"
           style={{
             borderBottom: '0.5px solid #D4CFC8',
             display: 'flex',
@@ -285,6 +338,7 @@ function Index() {
         >
           {/* Project Header — STICKY */}
           <div
+            className="index-works-header-content"
             style={{
               position: 'sticky',
               top: 0,
@@ -294,7 +348,6 @@ function Index() {
               gap: '24px',
               padding: '16px 48px',
               backgroundColor: '#Fff',
-              // borderBottom: '0.5px solid #D4CFC8',
               transition: 'background 0.3s ease',
               justifyContent: 'space-between',
             }}
@@ -374,6 +427,7 @@ function Index() {
 
           {/* Project Image — NOT STICKY */}
           <div
+            className="index-works-image"
             style={{
               display: 'flex',
               justifyContent: 'flex-end',
