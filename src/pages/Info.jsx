@@ -146,8 +146,12 @@ function Info() {
         }
 
         @media (min-width: 810px) and (max-width: 1199.98px) {
+          .info-title {
+            padding: 160px 32px 72px 32px;
+          }
+
           .info-image {
-            min-height: 446px;
+            min-height: 360px;
           }
         }
 
@@ -157,7 +161,7 @@ function Info() {
           }
 
           .info-image {
-            min-height: 110px;
+            min-height: 180px;
           }
 
           .info-section {
@@ -166,7 +170,14 @@ function Info() {
             padding: 60px 16px;
           }
 
+          .info-skills {
+            width: 100%;
+          }
+
           .info-footer {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
             padding: 24px 16px;
           }
         }

@@ -28,9 +28,8 @@ function Gallery({ images }) {
         {allImages.map((item, index) => (
           <div
             key={`${item.id}-${index}`}
+            className="index-gallery-card"
             style={{
-              width: '420px',
-              height: '420px',
               // borderRadius: '16px',
               overflow: 'hidden',
               cursor: 'pointer',
@@ -132,58 +131,206 @@ function Index() {
   return (
     <div>
       <style>{`
-        @media (max-width: 720px) {
-          .index-hero {
-            padding-bottom: 16px !important;
+        .index-hero-name {
+          padding: 0 48px 24px;
+        }
+
+        .index-bio-section,
+        .index-skills-section,
+        .index-contact-section {
+          padding: 140px 48px;
+        }
+
+        .index-selected-header,
+        .index-docs-header,
+        .index-footer {
+          padding-left: 48px;
+          padding-right: 48px;
+        }
+
+        .index-project-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 24px;
+          padding: 16px 48px;
+        }
+
+        .index-project-main {
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          flex: 1;
+          min-width: 0;
+        }
+
+        .index-project-tags {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+        }
+
+        .index-project-image-wrap {
+          display: flex;
+          justify-content: flex-end;
+          padding: 32px 48px;
+        }
+
+        .index-project-image {
+          width: 60%;
+          border-radius: 6px;
+          overflow: hidden;
+        }
+
+        .index-skills-grid {
+          display: flex;
+          justify-content: space-between;
+          gap: 80px;
+          align-items: flex-start;
+        }
+
+        .index-skills-column {
+          flex: 1;
+          min-width: 300px;
+        }
+
+        .index-docs-section {
+          padding: 140px 0;
+        }
+
+        .index-gallery-card {
+          width: 420px;
+          height: 420px;
+        }
+
+        .index-contact-section {
+          display: flex;
+        }
+
+        .index-contact-copy {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .index-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-top: 24px;
+          padding-bottom: 24px;
+        }
+
+        @media (max-width: 1024px) {
+          .index-bio-section,
+          .index-skills-section,
+          .index-contact-section {
+            padding-top: 96px;
+            padding-bottom: 96px;
           }
-          .index-bio {
-            padding: 96px 20px 96px !important;
+
+          .index-skills-grid {
+            gap: 40px;
           }
-          .index-bio-text {
-            max-width: 100% !important;
+
+          .index-project-image {
+            width: 72%;
           }
-          .index-works-header {
-            padding: 16px 20px !important;
+        }
+
+        @media (max-width: 809.98px) {
+          .index-hero-name {
+            padding: 0 16px 20px;
           }
-          .index-works-item {
-            padding-left: 20px !important;
-            padding-right: 20px !important;
+
+          .index-bio-section,
+          .index-skills-section,
+          .index-contact-section {
+            padding: 72px 16px;
           }
-          .index-works-header-content {
-            flex-direction: column !important;
-            gap: 16px !important;
-          }
-          .index-works-image {
-            width: 100% !important;
-            padding: 24px 20px !important;
-          }
-          .index-skills {
-            padding: 96px 20px 96px !important;
-            flex-direction: column !important;
-            gap: 48px !important;
-          }
-          .index-personal {
-            padding: 96px 0 96px 0 !important;
-          }
-          .index-personal-header {
-            padding-left: 20px !important;
-            padding-right: 20px !important;
-            padding-bottom: 48px !important;
-          }
-          .index-contact-cta {
-            padding: 96px 20px !important;
-            flex-direction: column !important;
-            gap: 24px !important;
-          }
+
+          .index-selected-header,
+          .index-docs-header,
           .index-footer {
-            padding: 18px 20px !important;
-            flex-direction: column !important;
+            padding-left: 16px;
+            padding-right: 16px;
+          }
+
+          .index-bio-copy {
+            max-width: 100% !important;
+            font-size: clamp(22px, 7vw, 34px) !important;
+          }
+
+          .index-project-header {
+            position: static !important;
+            flex-direction: column;
+            align-items: flex-start;
             gap: 12px;
-            text-align: center;
+            padding: 14px 16px;
+          }
+
+          .index-project-main {
+            width: 100%;
+            gap: 12px;
+          }
+
+          .index-project-title {
+            font-size: clamp(14px, 4.8vw, 20px) !important;
+          }
+
+          .index-project-tags {
+            width: 100%;
+            justify-content: flex-start;
+            gap: 6px;
+          }
+
+          .index-project-image-wrap {
+            padding: 16px;
+          }
+
+          .index-project-image {
+            width: 100%;
+          }
+
+          .index-skills-grid {
+            flex-direction: column;
+            gap: 40px;
+          }
+
+          .index-skills-column {
+            min-width: 0;
+            width: 100%;
+          }
+
+          .index-docs-section {
+            padding: 72px 0;
+          }
+
+          .index-docs-header {
+            padding-bottom: 32px !important;
+          }
+
+          .index-gallery-card {
+            width: 240px;
+            height: 240px;
+          }
+
+          .index-contact-section {
+            flex-direction: column;
+            gap: 24px;
+          }
+
+          .index-footer {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
           }
         }
       `}</style>
-      <section className="index-hero" style={{
+      <section style={{
         position: 'relative',
         minHeight: '100vh',
         display: 'flex',
@@ -226,7 +373,8 @@ function Index() {
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
-          style={{ position: 'relative', zIndex: 2, padding: '0 48px 24px' }}
+          className="index-hero-name"
+          style={{ position: 'relative', zIndex: 2 }}
         >
           <h1
             ref={textRef}
@@ -246,9 +394,8 @@ function Index() {
       </section>
 
       {/* ── BIO ── */}
-      <section className="index-bio" style={{ padding: '140px 48px 140px', backgroundColor: '#fff', borderBottom: '0.5px solid #D4CFC8' }}>
+      <section className="index-bio-section" style={{ backgroundColor: '#fff', borderBottom: '0.5px solid #D4CFC8' }}>
         <Motion.div
-          className="index-bio-text"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -261,6 +408,7 @@ function Index() {
               },
             },
           }}
+          className="index-bio-copy"
           style={{
             fontFamily: 'Plus Jakarta Sans',
             fontSize: 'clamp(28px, 3.5vw, 52px)',
@@ -299,12 +447,14 @@ function Index() {
     <section style={{ backgroundColor: '#fff' }}>
 
       {/* Section Title */}
-      <div className="index-works-header" style={{
+      <div className="index-selected-header" style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '16px 48px',
+        paddingTop: '16px',
+        paddingBottom: '16px',
         backgroundColor: '#fff',
+        // borderBottom: '0.5px solid #D4CFC8',
       }}>
         <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: '#999', letterSpacing: '0.15em' }}>
           SELECTED WORKS
@@ -319,7 +469,6 @@ function Index() {
         <Link
           to={`/${project.slug}`}
           key={project.num}
-          className="index-works-item"
           style={{
             borderBottom: '0.5px solid #D4CFC8',
             display: 'flex',
@@ -338,22 +487,18 @@ function Index() {
         >
           {/* Project Header — STICKY */}
           <div
-            className="index-works-header-content"
+            className="index-project-header"
             style={{
               position: 'sticky',
               top: 0,
               zIndex: 10,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '24px',
-              padding: '16px 48px',
               backgroundColor: '#Fff',
+              // borderBottom: '0.5px solid #D4CFC8',
               transition: 'background 0.3s ease',
-              justifyContent: 'space-between',
             }}
           >
             {/* Left side: num + title */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flex: 1 }}>
+            <div className="index-project-main">
               <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: '#E8650A', minWidth: '24px' }}>
                 {project.num}
               </span>
@@ -393,6 +538,7 @@ function Index() {
                       color: '#1A1814',
                       transition: 'color 0.3s ease',
                     }}
+                    className="index-project-title"
                   >
                     {word}
                   </Motion.span>
@@ -401,7 +547,7 @@ function Index() {
             </div>
 
             {/* Right side: tags */}
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <div className="index-project-tags">
               {project.shortType.split(' · ').map(tag => (
                 <span key={tag} style={{
                   fontFamily: 'Geist Mono',
@@ -426,17 +572,8 @@ function Index() {
           </div>
 
           {/* Project Image — NOT STICKY */}
-          <div
-            className="index-works-image"
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              padding: '32px 48px',
-              textDecoration: 'none',
-            }}
-          >
-            <div style={{
-              width: '60%',
+          <div className="index-project-image-wrap" style={{ textDecoration: 'none' }}>
+            <div className="index-project-image" style={{
               height: 'flex',
               borderRadius: '6px',
               overflow: 'hidden',
@@ -450,11 +587,11 @@ function Index() {
     </section>
 
     {/* ── SKILLS ── */}
-    <section style={{ padding: '140px 48px 140px', backgroundColor: '#fff', borderBottom: '0.5px solid #D4CFC8' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '80px', alignItems: 'flex-start' }}>
+    <section className="index-skills-section" style={{ backgroundColor: '#fff', borderBottom: '0.5px solid #D4CFC8' }}>
+      <div className="index-skills-grid">
         
         {/* Left side — Label + Description */}
-        <div style={{ flex: 1, minWidth: '300px' }}>
+        <div className="index-skills-column">
           <Motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -484,7 +621,7 @@ function Index() {
         </div>
 
         {/* Right side — Skills List */}
-        <div style={{ flex: 1, minWidth: '300px' }}>
+        <div className="index-skills-column">
           <Motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -521,7 +658,7 @@ function Index() {
     </section>
 
     {/* ── PERSONAL DOCUMENTATION ── */}
-    <section style={{ padding: '140px 0 140px 0', backgroundColor: '#Fff', overflow: 'hidden' }}>
+    <section className="index-docs-section" style={{ backgroundColor: '#Fff', overflow: 'hidden' }}>
       <style>{`
         @keyframes scroll-left {
           0% {
@@ -532,7 +669,7 @@ function Index() {
           }
         }
       `}</style>
-      <div style={{ paddingLeft: '48px', paddingRight: '48px', paddingBottom: '64px' }}>
+      <div className="index-docs-header" style={{ paddingBottom: '64px' }}>
         <Motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -560,9 +697,7 @@ function Index() {
     </section>
 
     {/* ── CONTACT CTA ── */}
-    <section style={{
-      display: 'flex',
-      padding: '140px 48px',
+    <section className="index-contact-section" style={{
       borderTop: '0.5px solid #D4CFC8',
       borderBottom: '0.5px solid #D4CFC8',
       backgroundColor: '#Fff',
@@ -571,7 +706,7 @@ function Index() {
       <div style={{ flex: 1 }} />
 
       {/* Kanan — teks + email */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <div className="index-contact-copy">
         {/* Animasi kata per kata */}
         <Motion.div
           initial="hidden"
@@ -642,13 +777,7 @@ function Index() {
     </section>
 
     {/* ── FOOTER ── */}
-    <footer style={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: '24px 48px',
-      backgroundColor: '#Fff',
-    }}>
+    <footer className="index-footer" style={{ backgroundColor: '#Fff' }}>
       <span style={{
         fontFamily: 'Geist Mono',
         fontSize: '11px',
