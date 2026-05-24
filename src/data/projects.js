@@ -136,6 +136,28 @@ export const projects = [
       wireframeSecondary: '/images/vr/vr_fifth.png',
     }),
   },
+  {
+    num: '04',
+    slug: 'medisin',
+    title: 'Medisin',
+    titleLines: ['MEDISIN', 'PRODUCT UI DESIGN'],
+    shortType: 'UI Design · Dashboard',
+    tags: ['PRODUCT', 'UI/UX DESIGN', 'MANAGEMENT SYSTEM'],
+    detailRoles: ['UI/UX Design', 'Dashboard Design', 'Product Design'],
+    year: '2025',
+    img: '/images/medisin/medisin_photo.png',
+    overlayLabel: 'MEDISIN',
+    description:
+      'Medisin is a comprehensive management system designed to streamline healthcare operations. The UI design emphasizes usability and efficiency, providing healthcare professionals with a seamless experience for managing patient data, scheduling, and reporting.',
+    layout: createProjectLayout({
+      hero: '/images/medisin/medisin_hero.png',
+      galleryPrimary: '/images/medisin/medisin_primary.png',
+      gallerySecondary: '/images/medisin/medisin_secondary.png',
+      featureShowcase: '/images/medisin/medisin_third.png',
+      wireframePrimary: '/images/medisin/medisin_fourth.png',
+      wireframeSecondary: '/images/medisin/medisin_fifth.png',
+    }),
+  },
 ]
 
 export function getProjectBySlug(slug) {
