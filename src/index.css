@@ -6,6 +6,12 @@
   font-weight: 400;
 }
 
+@font-face {
+  font-family: 'Drowner-Free';
+  src: url('/fonts/Drowner-Free.otf') format('truetype');
+  font-weight: 400;
+}
+
 * {
   margin: 0;
   padding: 0;

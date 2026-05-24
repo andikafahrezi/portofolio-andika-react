@@ -357,7 +357,7 @@ function Index() {
             zIndex: 0,
           }}
         >
-          <source src="/video/Yuta Okkotsu vs Kurourushi cut.mp4" type="video/mp4" />
+          <source src="/video/raindrop_andika.webm" type="video/webm" />
         </video>
 
         {/* Overlay gelap */}
@@ -380,7 +380,7 @@ function Index() {
             ref={textRef}
             className="text-white leading-none inline-block"
             style={{
-              fontFamily: "'Jujutsu Kaisen', sans-serif",
+              fontFamily: "'Drowner-Free', sans-serif",
               fontWeight: 900,
               fontSize: 'clamp(30px, 8.5vw, 160px)',
               letterSpacing: '-0.02em',
