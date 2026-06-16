@@ -45,7 +45,7 @@ function Navbar() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
           <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: textMuted }}>{time}</span>
           <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: textMuted }}>Indonesia</span>
-          <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: textFaint }}>(IT & UI/UX Design enthusiast)</span>
+          <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: textFaint }}>(IT & UI/UX Designer)</span>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>

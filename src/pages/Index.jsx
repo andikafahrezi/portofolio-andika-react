@@ -378,7 +378,7 @@ function Index() {
         >
           <h1
             ref={textRef}
-            className="text-white leading-none inline-block"
+            className="text-amber-700 leading-none inline-block"
             style={{
               fontFamily: "'Drowner-Free', sans-serif",
               fontWeight: 900,
@@ -690,9 +690,11 @@ function Index() {
 
       <Gallery images={[
         { id: 1, img: '/images/bultang1.jpeg' },
-        { id: 2, img: '/images/andika2.jpeg' },
-        { id: 3, img: '/images/andika.jpeg' },
-        { id: 4, img: '/images/rumahpohon.jpeg' },
+        { id: 2, img: '/images/andika.jpeg' },
+        { id: 3, img: '/images/andika2.jpeg' },
+        { id: 4, img: '/images/andika3.jpeg' },
+        { id: 5, img: '/images/andika4.jpeg' },
+        { id: 6, img: '/images/rumahpohon.jpeg' },
       ]} />
     </section>
 
