@@ -150,7 +150,12 @@ export const projects = [
     description:
       'PT Sintesa Persada Teknologi is a company operating in the information technology sector, specialising in the development of digital solutions to support clients, operational needs, and business transformation.',
     layout: createProjectLayout({
-      hero: '/images/siptech/siptech_hero.png',
+      hero: {
+        type: 'video',
+        src: '/video/mockup siptech clip.mp4',
+        poster: '/images/siptech/siptech_hero.png',
+        objectFit: 'cover',
+      },
       galleryPrimary: '/images/siptech/siptech_primary.png',
       gallerySecondary: '/images/siptech/siptech_secondary.png',
       featureShowcase: '/images/siptech/siptech_third.png',
