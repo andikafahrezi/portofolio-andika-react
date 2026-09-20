@@ -357,7 +357,7 @@ function Index() {
             zIndex: 0,
           }}
         >
-          <source src="/video/raindrop_andika.mp4" type="video/mp4" />
+          <source src="/video/andika_raindropeffect.mp4" type="video/mp4" />
         </video>
 
         {/* Overlay gelap */}
