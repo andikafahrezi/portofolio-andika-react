@@ -364,7 +364,7 @@ function Index() {
         <div style={{
           position: 'absolute',
           inset: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.55)',
+          backgroundColor: 'rgba(0, 0, 0, 0.35)',
           zIndex: 1,
         }} />
 

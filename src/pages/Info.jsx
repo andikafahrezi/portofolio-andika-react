@@ -189,7 +189,7 @@ function Info() {
         <section className="info-title">
           <WordReveal
             as="h1"
-            text="Bachelor of Applied Science - Digital Creative Multimedia - Telkom University."
+            text="Bachelor of Applied Science - Multimedia Engineering Technology - Telkom University."
             amount={0.1}
             duration={0.55}
             y={22}
