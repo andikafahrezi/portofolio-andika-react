@@ -79,7 +79,7 @@ function SectionLabel({ children }) {
         fontWeight: 500,
         letterSpacing: '0.15em',
         textTransform: 'uppercase',
-        color: 'rgba(235, 109, 0, 0.55)',
+        color: 'rgba(235, 109, 0, 1)',
       }}
     />
   )

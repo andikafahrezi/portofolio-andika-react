@@ -8,6 +8,16 @@ import Contact from './pages/Contact'
 import ProjectDetail from './pages/ProjectDetail'
 import PageTransition from './components/PageTransition'
 
+function ScrollToTop() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [pathname])
+
+  return null
+}
+
 function AnimatedRoutes() {
   const location = useLocation()
 
@@ -22,8 +32,10 @@ function AnimatedRoutes() {
       '/vr-research-product-overview': 'VR Research Product Overview',
     }
     
-    const pageName = pageNames[location.pathname] || 'Page'
-    document.title = `${pageName} | Andika Fahrezi`
+    const pageName = pageNames[location.pathname]
+    document.title = location.pathname === '/'
+      ? 'Andika Fahrezi'
+      : `${pageName || 'Page'} | Andika Fahrezi`
   }, [location.pathname])
 
   return (
@@ -42,6 +54,7 @@ function AnimatedRoutes() {
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <div className="min-h-screen bg-white text-[#1A1814]">
         <main>
           <AnimatedRoutes />

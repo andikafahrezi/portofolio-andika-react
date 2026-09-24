@@ -460,7 +460,7 @@ function Index() {
           SELECTED WORKS
         </span>
         <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: '#999' }}>
-          (22–24)
+          (22–26)
         </span>
       </div>
 
@@ -522,7 +522,7 @@ function Index() {
                 {project.title.split(' ').map((word, i) => (
                   <Motion.span
                     key={i}
-                    className="proj-title"
+                    className="proj-title index-project-title"
                     variants={{
                       hidden: { opacity: 0, y: 30 },
                       visible: {
@@ -538,7 +538,6 @@ function Index() {
                       color: '#1A1814',
                       transition: 'color 0.3s ease',
                     }}
-                    className="index-project-title"
                   >
                     {word}
                   </Motion.span>
@@ -608,15 +607,47 @@ function Index() {
             }}>
               SKILLS
             </span>
-            <p style={{
-              fontFamily: 'Plus Jakarta Sans',
-              fontSize: 'clamp(24px, 2.8vw, 42px)',
-              fontWeight: 600,
-              color: '#1A1814',
-              lineHeight: 1.3,
-            }}>
-              Crafting seamless digital experiences from concept to execution.
-            </p>
+            <Motion.p
+              initial="hidden"
+              whileInView="visible"
+              transition={{ duration: 2, ease: 'easeOut' }}
+              viewport={{ once: true }}
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: 0.08,
+                  },
+                },
+              }}
+              style={{
+                fontFamily: 'Plus Jakarta Sans',
+                fontSize: 'clamp(24px, 2.8vw, 42px)',
+                fontWeight: 600,
+                color: '#1A1814',
+                lineHeight: 1.3,
+              }}
+            >
+              {'Crafting seamless digital experiences from concept to execution.'.split(' ').map((word, index) => (
+                <Motion.span
+                  key={`${word}-${index}`}
+                  variants={{
+                    hidden: { opacity: 0.001, y: 24 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { duration: 0.55, ease: 'easeOut' },
+                    },
+                  }}
+                  style={{
+                    display: 'inline-block',
+                    marginRight: '0.25em',
+                  }}
+                >
+                  {word}
+                </Motion.span>
+              ))}
+            </Motion.p>
           </Motion.div>
         </div>
 

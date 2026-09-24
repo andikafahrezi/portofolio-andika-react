@@ -82,6 +82,47 @@ function WordReveal({
   )
 }
 
+function LetterReveal({ as = 'div', text, style, className, amount = 0.06, duration = 0.6 }) {
+  const MotionTag = motion[as]
+
+  return (
+    <MotionTag
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: {},
+        visible: {
+          transition: {
+            staggerChildren: amount,
+          },
+        },
+      }}
+      style={style}
+      className={className}
+    >
+      {Array.from(String(text)).map((letter, index) => (
+        <motion.span
+          key={`${letter}-${index}`}
+          variants={{
+            hidden: { opacity: 0, y: 60 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: { duration, ease: 'easeOut' },
+            },
+          }}
+          style={{
+            display: 'inline-block',
+            whiteSpace: letter === ' ' ? 'pre' : undefined,
+          }}
+        >
+          {letter}
+        </motion.span>
+      ))}
+    </MotionTag>
+  )
+}
+
 function Contact() {
   const [result, setResult] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -206,7 +247,9 @@ function Contact() {
             flexWrap: 'wrap',
           }}
         >
-          <h1
+          <LetterReveal
+            as="h1"
+            text="CONTACT"
             style={{
               fontFamily: 'Bricolage Grotesque',
               fontWeight: 600,
@@ -216,9 +259,7 @@ function Contact() {
               margin: 0,
               letterSpacing: '-0.03em',
             }}
-          >
-            CONTACT
-          </h1>
+          />
 
           <p
             style={{

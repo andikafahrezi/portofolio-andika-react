@@ -59,6 +59,47 @@ function WordReveal({
   )
 }
 
+function LetterReveal({ as = 'div', text, style, className, amount = 0.06, duration = 0.6 }) {
+  const MotionTag = motion[as]
+
+  return (
+    <MotionTag
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: {},
+        visible: {
+          transition: {
+            staggerChildren: amount,
+          },
+        },
+      }}
+      style={style}
+      className={className}
+    >
+      {Array.from(String(text)).map((letter, index) => (
+        <motion.span
+          key={`${letter}-${index}`}
+          variants={{
+            hidden: { opacity: 0, y: 60 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: { duration, ease: 'easeOut' },
+            },
+          }}
+          style={{
+            display: 'inline-block',
+            whiteSpace: letter === ' ' ? 'pre' : undefined,
+          }}
+        >
+          {letter}
+        </motion.span>
+      ))}
+    </MotionTag>
+  )
+}
+
 function Works() {
   const [hoveredIndex, setHoveredIndex] = useState(null)
 
@@ -112,10 +153,9 @@ function Works() {
         justifyContent: 'space-between',
         alignItems: 'flex-end',
       }}>
-        <motion.h1
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+        <LetterReveal
+          as="h1"
+          text="WORK"
           style={{
             fontFamily: 'Onest',
             fontWeight: 600,
@@ -125,9 +165,7 @@ function Works() {
             margin: 0,
             letterSpacing: '-0.02em',
           }}
-        >
-          WORK
-        </motion.h1>
+        />
 
         <motion.span
           initial={{ opacity: 0, y: 60 }}
@@ -142,7 +180,7 @@ function Works() {
             letterSpacing: '-0.02em',
           }}
         >
-          (22–24)
+          (22–26)
         </motion.span>
       </section>
 

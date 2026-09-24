@@ -382,10 +382,17 @@ function ProjectDetail() {
 
         <section className="detail-shell detail-intro">
           <Motion.p
-            initial={{ opacity: 0.001, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            transition={{ duration: 0.72, ease: 'easeOut' }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.045,
+                },
+              },
+            }}
             style={{
               fontFamily: 'Plus Jakarta Sans',
               fontSize: 'clamp(28px, 4vw, 61px)',
@@ -397,7 +404,25 @@ function ProjectDetail() {
               maxWidth: '900px',
             }}
           >
-            {project.description}
+            {project.description.split(' ').map((word, index) => (
+              <Motion.span
+                key={`${word}-${index}`}
+                variants={{
+                  hidden: { opacity: 0.001, y: 20 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.55, ease: 'easeOut' },
+                  },
+                }}
+                style={{
+                  display: 'inline-block',
+                  marginRight: '0.25em',
+                }}
+              >
+                {word}
+              </Motion.span>
+            ))}
           </Motion.p>
 
           <Motion.div
