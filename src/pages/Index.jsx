@@ -1,6 +1,5 @@
 import { motion as Motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { useEffect, useRef } from 'react'
 import Navbar from '../components/Navbar'
 import { projects } from '../data/projects'
 
@@ -80,58 +79,11 @@ function ProjectPreview({ project }) {
 }
 
 function Index() {
-  const textRef = useRef(null)
-
-  useEffect(() => {
-    const fitText = () => {
-      const el = textRef.current
-      if (!el) return
-
-      // Force reflow untuk memastikan ukuran terbaru
-      el.style.transform = 'scaleX(1)'
-      void el.offsetWidth // trigger reflow
-
-      const padding = 96 // 48px kiri + 48px kanan
-      const availableWidth = window.innerWidth - padding
-      const scale = availableWidth / el.scrollWidth
-      el.style.transform = `scaleX(${scale})`
-      el.style.transformOrigin = 'left'
-    }
-
-    // Tunggu font load selesai sebelum menghitung
-    const initFitText = () => {
-      if (document.fonts.ready) {
-        document.fonts.ready.then(() => {
-          requestAnimationFrame(fitText)
-        })
-      } else {
-        requestAnimationFrame(fitText)
-      }
-    }
-
-    initFitText()
-
-    // Resize dengan debounce untuk performa
-    let resizeTimeout
-    const handleResize = () => {
-      clearTimeout(resizeTimeout)
-      resizeTimeout = setTimeout(() => {
-        requestAnimationFrame(fitText)
-      }, 150)
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      clearTimeout(resizeTimeout)
-    }
-  }, [])
-
-
   return (
     <div>
       <style>{`
         .index-hero-name {
+          width: 100%;
           padding: 0 48px 24px;
         }
 
@@ -170,6 +122,14 @@ function Index() {
           align-items: center;
           flex-wrap: wrap;
           justify-content: flex-end;
+        }
+
+        .index-project-row {
+          position: sticky;
+          top: 0;
+          z-index: 10;
+          background-color: #fff;
+          transition: background 0.3s ease;
         }
 
         .index-project-image-wrap {
@@ -225,6 +185,10 @@ function Index() {
         }
 
         @media (max-width: 1024px) {
+          .index-hero-name h1 {
+            font-size: clamp(42px, 12vw, 150px) !important;
+          }
+
           .index-bio-section,
           .index-skills-section,
           .index-contact-section {
@@ -244,6 +208,10 @@ function Index() {
         @media (max-width: 809.98px) {
           .index-hero-name {
             padding: 0 16px 20px;
+          }
+
+          .index-hero-name h1 {
+            font-size: clamp(36px, 11.5vw, 120px) !important;
           }
 
           .index-bio-section,
@@ -270,6 +238,10 @@ function Index() {
             align-items: flex-start;
             gap: 12px;
             padding: 14px 16px;
+          }
+
+          .index-project-row {
+            position: static;
           }
 
           .index-project-main {
@@ -364,27 +336,27 @@ function Index() {
         <div style={{
           position: 'absolute',
           inset: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.35)',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
           zIndex: 1,
         }} />
 
         {/* Nama — di atas overlay */}
         <Motion.div
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
+          initial={false}
           className="index-hero-name"
           style={{ position: 'relative', zIndex: 2 }}
         >
           <h1
-            ref={textRef}
-            className="text-amber-700 leading-none inline-block"
+            className="leading-none"
             style={{
+              color: '#ff5500',
               fontFamily: "'Drowner-Free', sans-serif",
-              fontWeight: 900,
-              fontSize: 'clamp(30px, 8.5vw, 160px)',
-              letterSpacing: '-0.02em',
+              // fontWeight: 900,
+              fontSize: 'clamp(42px, 14vw, 480px)',
+              // letterSpacing: '-0.03em',
               whiteSpace: 'nowrap',
+              width: '100%',
+              textAlign: 'center',
             }}
           >
             ANDIKA FAHREZI
@@ -400,9 +372,8 @@ function Index() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={{
-            hidden: { opacity: 0 },
+            hidden: {},
             visible: {
-              opacity: 1,
               transition: {
                 staggerChildren: 0.08,
               },
@@ -414,18 +385,14 @@ function Index() {
             fontSize: 'clamp(28px, 3.5vw, 52px)',
             fontWeight: 600,
             color: '#1A1814',
-            lineHeight: 1.3,
-            maxWidth: '70%',
+            lineHeight: 1,
+            maxWidth: '60%',
             display: 'flex',
             flexWrap: 'wrap',
             gap: '0.3em',
           }}
         >
-          {[
-            'Hi,', "I'm", 'Andika,', 'I', 'am', 'a', 'graduate', 'with', 'a', 'Bachelor', 'of', 'Applied', 'Science',
-            'in', 'Digital', 'Creative', 'Multimedia.', 'with', 'experience', 'in', 'smart', 'technology',
-            'research,', 'IoT', 'data', 'analysis,', 'and', 'strong', 'skills', 'in', 'UI/UX', 'design', 'using', 'Figma.'
-          ].map((word, index) => (
+          {"Hi, I'm Andika, I am a graduate with a Bachelor of Applied Science in Digital Creative Multimedia. with experience in smart technology research, IoT data analysis, and strong skills in UI/UX design using Figma.".split(' ').map((word, index) => (
             <Motion.span
               key={`${word}-${index}`}
               variants={{
@@ -436,6 +403,7 @@ function Index() {
                   transition: { duration: 0.5, ease: 'easeOut' },
                 },
               }}
+              style={{ display: 'inline-block' }}
             >
               {word}
             </Motion.span>
@@ -456,10 +424,10 @@ function Index() {
         backgroundColor: '#fff',
         // borderBottom: '0.5px solid #D4CFC8',
       }}>
-        <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: '#999', letterSpacing: '0.15em' }}>
+        <span style={{ fontFamily: 'Geist Mono', fontSize: '12px', fontWeight: 600, color: '#999', letterSpacing: '0.15em' }}>
           SELECTED WORKS
         </span>
-        <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: '#999' }}>
+        <span style={{ fontFamily: 'Geist Mono', fontSize: '12px', fontWeight: 600, color: '#999' }}>
           (22–26)
         </span>
       </div>
@@ -469,6 +437,7 @@ function Index() {
         <Link
           to={`/${project.slug}`}
           key={project.num}
+          className="index-project-row"
           style={{
             borderBottom: '0.5px solid #D4CFC8',
             display: 'flex',
@@ -485,18 +454,9 @@ function Index() {
             titles.forEach(t => t.style.color = '#1A1814')
           }}
         >
-          {/* Project Header — STICKY */}
-          <div
-            className="index-project-header"
-            style={{
-              position: 'sticky',
-              top: 0,
-              zIndex: 10,
-              backgroundColor: '#Fff',
-              // borderBottom: '0.5px solid #D4CFC8',
-              transition: 'background 0.3s ease',
-            }}
-          >
+          {/* Project Header + Image — STICKY */}
+          <div>
+            <div className="index-project-header">
             {/* Left side: num + title */}
             <div className="index-project-main">
               <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: '#E8650A', minWidth: '24px' }}>
@@ -524,11 +484,11 @@ function Index() {
                     key={i}
                     className="proj-title index-project-title"
                     variants={{
-                      hidden: { opacity: 0, y: 30 },
+                      hidden: { opacity: 0, y: 40 },
                       visible: {
                         opacity: 1,
                         y: 0,
-                        transition: { duration: 0.6, ease: 'easeOut' },
+                        transition: { duration: 0.5, ease: 'easeOut' },
                       },
                     }}
                     style={{
@@ -568,16 +528,17 @@ function Index() {
                 {project.year}
               </span>
             </div>
-          </div>
 
-          {/* Project Image — NOT STICKY */}
-          <div className="index-project-image-wrap" style={{ textDecoration: 'none' }}>
-            <div className="index-project-image" style={{
-              height: 'flex',
-              borderRadius: '6px',
-              overflow: 'hidden',
-            }}>
-              <ProjectPreview project={project} />
+            </div>
+
+            <div className="index-project-image-wrap" style={{ textDecoration: 'none' }}>
+              <div className="index-project-image" style={{
+                height: 'flex',
+                borderRadius: '6px',
+                overflow: 'hidden',
+              }}>
+                <ProjectPreview project={project} />
+              </div>
             </div>
           </div>
         </Link>
@@ -599,8 +560,9 @@ function Index() {
           >
             <span style={{
               fontFamily: 'Geist Mono',
-              fontSize: '11px',
-              color: '#E8650A',
+              fontSize: '12px',
+              fontWeight: 600,
+              color: '#ff5500',
               letterSpacing: '0.15em',
               display: 'block',
               marginBottom: '24px',
@@ -632,7 +594,7 @@ function Index() {
                 <Motion.span
                   key={`${word}-${index}`}
                   variants={{
-                    hidden: { opacity: 0.001, y: 24 },
+                    hidden: { opacity: 0.001, y: 30 },
                     visible: {
                       opacity: 1,
                       y: 0,
@@ -709,8 +671,9 @@ function Index() {
         >
           <span style={{
             fontFamily: 'Geist Mono',
-            fontSize: '11px',
-            color: '#E8650A',
+            fontSize: '12px',
+            fontWeight: 600,
+            color: '#ff5500',
             letterSpacing: '0.15em',
             display: 'block',
           }}>
@@ -746,9 +709,8 @@ function Index() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={{
-            hidden: { opacity: 0 },
+            hidden: {},
             visible: {
-              opacity: 1,
               transition: {
                 staggerChildren: 0.08,
               },
@@ -759,28 +721,27 @@ function Index() {
             fontSize: 'clamp(20px, 2.2vw, 30px)',
             fontWeight: 600,
             color: '#1A1814',
-            lineHeight: 1.1,
-            maxWidth: '380px',
+            lineHeight: 1,
+            maxWidth: '420px',
             display: 'flex',
             flexWrap: 'wrap',
             gap: '0.3em',
           }}
         >
-          {[
-            'Available', 'for', 'work', 'and', 'always', 'seeking',
-            'opportunities', 'to', 'contribute', 'professionally',
-            'in', 'the', 'field', 'of', 'smart', 'technology',
-            'and', 'design.'
-          ].map((word, index) => (
+          {'Available for work and always seeking opportunities to contribute professionally in the field of smart technology and design.'.split(' ').map((word, index) => (
             <Motion.span
               key={`${word}-${index}`}
               variants={{
-                hidden: { opacity: 0, y: 30 },
+                hidden: { opacity: 0.001, y: 30 },
                 visible: {
                   opacity: 1,
                   y: 0,
                   transition: { duration: 0.5, ease: 'easeOut' },
                 },
+              }}
+              style={{
+                display: 'inline-block',
+                marginRight: '0.25em',
               }}
             >
               {word}
@@ -810,10 +771,11 @@ function Index() {
     </section>
 
     {/* ── FOOTER ── */}
-    <footer className="index-footer" style={{ backgroundColor: '#Fff' }}>
+    <footer className="index-footer" style={{ backgroundColor: '#fff' }}>
       <span style={{
         fontFamily: 'Geist Mono',
-        fontSize: '11px',
+        fontSize: '12px',
+        fontWeight: 600,
         color: '#1A1814',
         letterSpacing: '0.08em',
       }}>
@@ -821,7 +783,7 @@ function Index() {
       </span>
       <span style={{
         fontFamily: 'Geist Mono',
-        fontSize: '11px',
+        fontSize: '12px',
         color: '#1A1814',
       }}>
         andfrz09@gmail.com

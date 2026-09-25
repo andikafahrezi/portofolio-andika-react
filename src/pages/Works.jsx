@@ -4,9 +4,9 @@ import { motion } from 'framer-motion'
 import Navbar from '../components/Navbar'
 import { projects } from '../data/projects'
 
-const WORD_STAGGER = 0.04
-const WORD_DURATION = 0.45
-const WORD_Y = 14
+const WORD_STAGGER = 0.08
+const WORD_DURATION = 0.55
+const WORD_Y = 24
 
 function WordReveal({
   as = 'div',
@@ -25,11 +25,10 @@ function WordReveal({
     <MotionTag
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.4 }}
+      viewport={{ once: true }}
       variants={{
-        hidden: { opacity: 1 },
+        hidden: {},
         visible: {
-          opacity: 1,
           transition: {
             delayChildren: delay,
             staggerChildren: amount,
@@ -50,7 +49,7 @@ function WordReveal({
               transition: { duration, ease: 'easeOut' },
             },
           }}
-          style={{ display: 'inline-block', marginRight: '0.28em' }}
+          style={{ display: 'inline-block', marginRight: '0.25em' }}
         >
           {word}
         </motion.span>
@@ -234,9 +233,6 @@ function Works() {
               <WordReveal
                 as="div"
                 text={project.title}
-                amount={0.05}
-                duration={0.42}
-                y={12}
                 delay={0}
                 style={{
                   fontFamily: 'Onest',
@@ -256,9 +252,6 @@ function Works() {
                   key={tag}
                   as="div"
                   text={tag}
-                  amount={0.025}
-                  duration={0.38}
-                  y={10}
                   delay={0.14 + tagIndex * 0.06}
                   style={{
                     fontFamily: 'Geist Mono',
@@ -274,9 +267,6 @@ function Works() {
             <WordReveal
               as="div"
               text={project.year}
-              amount={0.08}
-              duration={0.35}
-              y={10}
               delay={0.34}
               style={{
                 fontFamily: 'Geist Mono',
@@ -362,31 +352,39 @@ function Works() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={{
-              hidden: { opacity: 0 },
-              visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.08,
+                },
+              },
             }}
             style={{
               fontFamily: 'Plus Jakarta Sans',
               fontSize: 'clamp(20px, 2.2vw, 30px)',
               fontWeight: 600,
               color: '#1A1814',
-              lineHeight: 1.1,
+              lineHeight: 1,
               maxWidth: '380px',
               display: 'flex',
               flexWrap: 'wrap',
               gap: '0.3em',
             }}
           >
-            {[
-              'Always', 'seeking', 'opportunities', 'to', 'contribute',
-              'professionally', 'in', 'the', 'field', 'of', 'smart',
-              'technology', 'and', 'design.'
-            ].map((word, i) => (
+            {'Always seeking opportunities to contribute professionally in the field of smart technology and design.'.split(' ').map((word, index) => (
               <motion.span
-                key={i}
+                key={`${word}-${index}`}
                 variants={{
-                  hidden: { opacity: 0, y: 30 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+                  hidden: { opacity: 0.001, y: 30 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.5, ease: 'easeOut' },
+                  },
+                }}
+                style={{
+                  display: 'inline-block',
+                  marginRight: '0.25em',
                 }}
               >
                 {word}

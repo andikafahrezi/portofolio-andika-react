@@ -13,7 +13,6 @@ function Navbar() {
   const [time, setTime] = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
-  const isIndexPage = location.pathname === '/'
 
   useEffect(() => {
     const update = () => {
@@ -28,9 +27,11 @@ function Navbar() {
     return () => clearInterval(iv)
   }, [])
 
-  const textColor = isIndexPage ? 'white' : '#1A1814'
-  const textMuted = isIndexPage ? 'rgba(255,255,255,0.6)' : 'rgba(26,24,20,0.5)'
-  const textFaint = isIndexPage ? 'rgba(255,255,255,0.4)' : 'rgba(26,24,20,0.4)'
+  const navbarColors = {
+    text: '#1A1814',
+    muted: 'rgba(26,24,20,0.5)',
+    faint: 'rgba(26,24,20,0.4)',
+  }
 
   return (
     <>
@@ -38,14 +39,14 @@ function Navbar() {
       <nav className="hidden md:flex absolute top-0 left-0 right-0 z-50 items-start justify-between bg-transparent"
         style={{ padding: '24px 48px' }}
       >
-        <Link to="/" style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: textColor, letterSpacing: '0.1em', textDecoration: 'none' }}>
+        <Link to="/" style={{ fontFamily: 'Geist Mono', fontSize: '12px', color: navbarColors.text, letterSpacing: '0.1em', textDecoration: 'none' }}>
           ANDIKA FAHREZI®
         </Link>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-          <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: textMuted }}>{time}</span>
-          <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: textMuted }}>Indonesia</span>
-          <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: textFaint }}>(IT & UI/UX Designer)</span>
+          <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: navbarColors.muted }}>{time}</span>
+          <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: navbarColors.muted }}>Indonesia</span>
+          <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: navbarColors.faint }}>(IT & UI/UX Designer)</span>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
@@ -57,14 +58,14 @@ function Navbar() {
                 to={link.to}
                 style={{
                   fontFamily: 'Geist Mono',
-                  fontSize: '11px',
+                  fontSize: '12px',
                   letterSpacing: '0.05em',
                   textDecoration: 'none',
-                  color: isActive ? '#E8650A' : textColor,
+                  color: isActive ? '#E8650A' : navbarColors.text,
                   transition: 'color 0.3s ease',
                 }}
-                onMouseEnter={e => { if (!isActive) e.currentTarget.style.color = '#E8650A' }}
-                onMouseLeave={e => { if (!isActive) e.currentTarget.style.color = textColor }}
+                onMouseEnter={e => { if (!isActive) e.currentTarget.style.color = '#ff5500' }}
+                onMouseLeave={e => { if (!isActive) e.currentTarget.style.color = navbarColors.text }}
               >
                 {link.label}
               </Link>
@@ -75,23 +76,19 @@ function Navbar() {
 
       {/* ── MOBILE NAVBAR ── */}
       <nav className="md:hidden absolute top-0 left-0 right-0 z-50 flex items-center justify-between bg-transparent"
-        style={{ padding: '20px 24px' }}
+        style={{ height: '64px', padding: '16px' }}
       >
-        <Link to="/" style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: menuOpen ? 'white' : textColor, textDecoration: 'none' }}>
+        <Link to="/" style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: menuOpen ? 'white' : navbarColors.text, textDecoration: 'none' }}>
           ANDIKA FAHREZI®
         </Link>
 
-        <span style={{ fontFamily: 'Geist Mono', fontSize: '10px', color: menuOpen ? 'rgba(255,255,255,0.6)' : textMuted }}>
-          {time}
-        </span>
-
         <button
           onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '6px', padding: '4px', zIndex: 50 }}
         >
-          <span style={{ display: 'block', height: '1px', width: '20px', backgroundColor: menuOpen ? 'white' : textColor, transition: 'all 0.3s ease', transform: menuOpen ? 'rotate(45deg) translateY(7px)' : 'none' }} />
-          <span style={{ display: 'block', height: '1px', backgroundColor: menuOpen ? 'white' : textColor, transition: 'all 0.3s ease', width: menuOpen ? '0' : '14px', opacity: menuOpen ? 0 : 1 }} />
-          <span style={{ display: 'block', height: '1px', width: '20px', backgroundColor: menuOpen ? 'white' : textColor, transition: 'all 0.3s ease', transform: menuOpen ? 'rotate(-45deg) translateY(-7px)' : 'none' }} />
+          <span style={{ display: 'block', height: '2px', width: '24px', backgroundColor: menuOpen ? 'white' : navbarColors.text, transition: 'transform 0.35s ease', transform: menuOpen ? 'rotate(45deg) translateY(5.5px)' : 'none' }} />
+          <span style={{ display: 'block', height: '2px', width: '24px', backgroundColor: menuOpen ? 'white' : navbarColors.text, transition: 'transform 0.35s ease', transform: menuOpen ? 'rotate(-45deg) translateY(-5.5px)' : 'none' }} />
         </button>
       </nav>
 
@@ -99,42 +96,51 @@ function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <Motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: '-100%' }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
+            exit={{ opacity: 0, y: '-100%' }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             style={{
-              position: 'fixed',
-              inset: 0,
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '50vh',
               backgroundColor: '#1A1814',
               zIndex: 40,
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
               alignItems: 'flex-start',
-              padding: '0 24px',
-              gap: '24px',
+              padding: '96px 24px 32px',
+              gap: '14px',
             }}
           >
             {navLinks.map((link) => {
               const isActive = location.pathname === link.to
               return (
-                <Link
+                <Motion.div
                   key={link.label}
-                  to={link.to}
-                  onClick={() => setMenuOpen(false)}
-                  style={{
-                    fontFamily: 'Bricolage Grotesque',
-                    fontWeight: 800,
-                    fontSize: 'clamp(40px, 12vw, 80px)',
-                    color: isActive ? '#E8650A' : 'white',
-                    textDecoration: 'none',
-                    letterSpacing: '-0.02em',
-                    lineHeight: 1,
-                  }}
+                  initial={{ opacity: 0, x: -24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.35, ease: 'easeOut', delay: 0.12 + navLinks.indexOf(link) * 0.06 }}
                 >
-                  {link.label}
-                </Link>
+                  <Link
+                    to={link.to}
+                    onClick={() => setMenuOpen(false)}
+                    style={{
+                      fontFamily: 'Plus Jakarta Sans',
+                      fontWeight: 600,
+                      fontSize: 'clamp(12px, 12vw, 22px)',
+                      color: isActive ? '#ff5500' : 'white',
+                      textDecoration: 'none',
+                      letterSpacing: '-0.02em',
+                      lineHeight: 0.5,
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                </Motion.div>
               )
             })}
 
