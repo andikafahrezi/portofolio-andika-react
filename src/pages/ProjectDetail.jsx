@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { motion as Motion } from 'framer-motion'
 import Navbar from '../components/Navbar'
+import SiteFooter from '../components/SiteFooter'
 import { getProjectBySlug, projects } from '../data/projects'
 
 const ctaText =
@@ -224,13 +225,6 @@ function ProjectDetail() {
           padding-bottom: 96px;
         }
 
-        .detail-footer {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 22px 48px 28px;
-        }
-
         /* Tablet Responsive */
         @media (max-width: 1024px) {
           .detail-shell {
@@ -313,12 +307,6 @@ function ProjectDetail() {
             padding-bottom: 64px;
           }
 
-          .detail-footer {
-            padding: 18px 20px 22px;
-            flex-direction: column;
-            gap: 12px;
-            text-align: center;
-          }
         }
 
         /* Small Mobile */
@@ -583,27 +571,7 @@ function ProjectDetail() {
           </div>
         </section>
 
-        <footer className="detail-footer">
-          <span
-            style={{
-              fontFamily: 'Geist Mono',
-              fontSize: '9px',
-              color: '#1A1814',
-              letterSpacing: '0.08em',
-            }}
-          >
-            ANDIKA FAHREZI®
-          </span>
-          <span
-            style={{
-              fontFamily: 'Geist Mono',
-              fontSize: '10px',
-              color: '#1A1814',
-            }}
-          >
-            andfrz09@gmail.com
-          </span>
-        </footer>
+        <SiteFooter />
       </div>
     </div>
   )

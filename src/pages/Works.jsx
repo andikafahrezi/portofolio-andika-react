@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Navbar from '../components/Navbar'
+import SiteFooter from '../components/SiteFooter'
 import { projects } from '../data/projects'
 
 const WORD_STAGGER = 0.08
@@ -99,6 +100,33 @@ function LetterReveal({ as = 'div', text, style, className, amount = 0.06, durat
   )
 }
 
+function ProjectMedia({ project }) {
+  const hero = project.layout?.hero
+  const mediaStyle = {
+    width: '100%',
+    height: '100%',
+    objectFit: hero?.objectFit || 'cover',
+    objectPosition: hero?.objectPosition || 'center',
+    display: 'block',
+  }
+
+  if (hero?.type === 'video') {
+    return (
+      <video
+        src={hero.src}
+        poster={hero.poster || project.img}
+        autoPlay
+        muted
+        loop
+        playsInline
+        style={mediaStyle}
+      />
+    )
+  }
+
+  return <img src={hero?.src || project.img} alt={project.title} style={mediaStyle} />
+}
+
 function Works() {
   const [hoveredIndex, setHoveredIndex] = useState(null)
 
@@ -115,31 +143,130 @@ function Works() {
           .works-header-right {
             order: -1;
           }
-          .works-list-header {
-            padding: 12px 20px !important;
-            display: none;
-          }
-          .works-list-item {
-            padding: 18px 20px !important;
-            flex-direction: column;
-            gap: 12px;
-            align-items: flex-start !important;
-          }
           .works-contact-cta {
             padding: 96px 20px !important;
             flex-direction: column;
             gap: 24px !important;
           }
-          .works-footer {
-            padding: 18px 20px !important;
+          .works-overlay-card {
+            display: none;
+          }
+        }
+        .works-project-main {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          min-width: 0;
+        }
+        .works-project-heading {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          min-width: 0;
+        }
+        .works-project-roles,
+        .works-project-preview {
+          display: none;
+        }
+        .works-project-details {
+          display: contents;
+        }
+        @media (max-width: 1199.98px) {
+          .works-header {
+            padding-bottom: 124px !important;
+          }
+          .works-list-header {
+            display: none !important;
+          }
+          .works-col-type,
+          .works-col-year {
+            display: none;
+          }
+          .works-list-item {
+            display: grid !important;
+            position: sticky !important;
+            top: 32px;
+            z-index: var(--works-row-order);
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+            align-items: start !important;
+            gap: 16px;
+            padding: 24px 16px !important;
+          }
+          .works-project-main {
+            display: flex;
             flex-direction: column;
-            gap: 12px;
-            text-align: center;
+            align-items: stretch;
+            gap: 8px;
+            min-width: 0;
+            z-index: 1;
+          }
+          .works-project-heading {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            min-width: 0;
+          }
+          .works-project-number {
+            font-size: 12px !important;
+            line-height: 16.8px;
+            color: rgba(26, 24, 20, 0.5) !important;
+          }
+          .works-project-title {
+            font-size: 18px !important;
+            line-height: 1.2;
+            padding-bottom: 16px !important;
+            letter-spacing: normal !important;
+            text-transform: none !important;
+          }
+          .works-project-preview {
+            display: block;
+            width: 100%;
+            height: 115px;
+            overflow: hidden;
+            background: #f1f1f1;
+          }
+          .works-project-details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px !important;
+            min-width: 0;
+            width: 100%;
+            overflow: hidden;
+          }
+          .works-project-tags {
+            display: none !important;
+          }
+          .works-project-roles {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+            min-width: 0;
+            width: 100%;
+          }
+          .works-project-role {
+            font-family: 'Plus Jakarta Sans';
+            font-size: 12px;
+            line-height: 1.2;
+            color: #888;
+            overflow-wrap: anywhere;
+            text-align: right;
+          }
+          .works-project-year {
+            align-self: flex-end;
+            font-size: 12px !important;
+            font-weight: 500 !important;
+            line-height: 1.2;
           }
           .works-overlay-card {
-            right: 16px !important;
-            width: 200px !important;
-            height: 200px !important;
+            display: none;
+          }
+        }
+        @media (max-width: 720px) {
+          .works-header {
+            padding-bottom: 103px !important;
           }
         }
       `}</style>
@@ -188,18 +315,18 @@ function Works() {
 
         {/* Header kolom */}
         <div className="works-list-header" style={{
-          display: 'flex',
-          justifyContent: 'space-between',
+          display: 'grid',
+          gridTemplateColumns: 'minmax(0, 4fr) minmax(0, 4fr) minmax(0, 1fr)',
           padding: '12px 48px',
           borderBottom: '0.5px solid #D4CFC8',
         }}>
-          <span className="works-col-name" style={{ fontFamily: 'Geist Mono', fontSize: '10px', color: '#E8650A', letterSpacing: '0.15em', flex: 2 }}>
+          <span className="works-col-name" style={{ fontFamily: 'Geist Mono', fontSize: '12px', color: '#0B33A7', letterSpacing: '0.15em', flex: 2 }}>
             # NAME ✦
           </span>
-          <span className="works-col-type" style={{ fontFamily: 'Geist Mono', fontSize: '10px', color: '#E8650A', letterSpacing: '0.15em', flex: 2 }}>
+          <span className="works-col-type" style={{ fontFamily: 'Geist Mono', fontSize: '12px', color: '#0B33A7', letterSpacing: '0.15em', flex: 2 }}>
             TYPE ✦
           </span>
-          <span className="works-col-year" style={{ fontFamily: 'Geist Mono', fontSize: '10px', color: '#E8650A', letterSpacing: '0.15em', textAlign: 'right', flex: 0.5 }}>
+          <span className="works-col-year" style={{ fontFamily: 'Geist Mono', fontSize: '12px', color: '#0B33A7', letterSpacing: '0.15em', textAlign: 'right', flex: 0.5 }}>
             YEAR ✦
           </span>
         </div>
@@ -214,9 +341,10 @@ function Works() {
             onMouseLeave={() => setHoveredIndex(null)}
             style={{
               position: 'relative',
-              display: 'flex',
+              '--works-row-order': index + 1,
+              display: 'grid',
+              gridTemplateColumns: 'minmax(0, 4fr) minmax(0, 4fr) minmax(0, 1fr)',
               alignItems: 'center',
-              justifyContent: 'space-between',
               padding: '14px 48px',
               borderBottom: '0.5px solid #D4CFC8',
               backgroundColor: hoveredIndex === index ? '#EDEAE5' : '#Fff',
@@ -225,58 +353,71 @@ function Works() {
               textDecoration: 'none',
             }}
           >
-            {/* Nama project */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 2 }}>
-              <span style={{ fontFamily: 'Geist Mono', fontSize: '10px', color: '#E8650A' }}>
-                {project.num}
-              </span>
+            {/* Project name and inline preview */}
+            <div className="works-project-main" style={{ flex: 2 }}>
+              <div className="works-project-heading">
+                <span className="works-project-number" style={{ fontFamily: 'Geist Mono', fontSize: '10px', color: '#0B33A7' }}>
+                  {project.num}
+                </span>
+                <WordReveal
+                  as="div"
+                  text={project.title}
+                  className="proj-title works-project-title"
+                  delay={0}
+                  style={{
+                    fontFamily: 'Onest',
+                    fontWeight: 600,
+                    fontSize: 'clamp(12px, 1vw, 12px)',
+                    color: '#1A1814',
+                    letterSpacing: '0.05em',
+                    textTransform: 'uppercase',
+                  }}
+                />
+              </div>
+              <div className="works-project-preview">
+                <ProjectMedia project={project} />
+              </div>
+            </div>
+
+            {/* Project details */}
+            <div className="works-project-details" style={{ gap: '16px', flex: 2 }}>
+              <div className="works-project-roles">
+                {project.detailRoles.map((role) => (
+                  <div key={role} className="works-project-role">{role}</div>
+                ))}
+              </div>
+              <div className="works-project-tags" style={{ display: 'flex', gap: '16px', flex: 1 }}>
+                {project.tags.map((tag, tagIndex) => (
+                  <WordReveal
+                    key={tag}
+                    as="div"
+                    text={tag}
+                    delay={0.14 + tagIndex * 0.06}
+                    style={{
+                      fontFamily: 'Geist Mono',
+                      fontSize: '10px',
+                      color: '#888',
+                      letterSpacing: '0.05em',
+                    }}
+                  />
+                ))}
+              </div>
+              {/* Year */}
               <WordReveal
                 as="div"
-                text={project.title}
-                delay={0}
+                text={project.year}
+                className="works-project-year"
+                delay={0.34}
                 style={{
-                  fontFamily: 'Onest',
-                  fontWeight: 600,
-                  fontSize: 'clamp(8px, 1vw, 12px)',
+                  fontFamily: 'Geist Mono',
+                  fontSize: '12px',
                   color: '#1A1814',
-                  letterSpacing: '0.05em',
-                  textTransform: 'uppercase',
+                  fontWeight: 500,
+                  textAlign: 'right',
+                  flex: 0.5,
                 }}
               />
             </div>
-
-            {/* Tags */}
-            <div style={{ display: 'flex', gap: '16px', flex: 2 }}>
-              {project.tags.map((tag, tagIndex) => (
-                <WordReveal
-                  key={tag}
-                  as="div"
-                  text={tag}
-                  delay={0.14 + tagIndex * 0.06}
-                  style={{
-                    fontFamily: 'Geist Mono',
-                    fontSize: '8px',
-                    color: '#888',
-                    letterSpacing: '0.05em',
-                  }}
-                />
-              ))}
-            </div>
-
-            {/* Tahun */}
-            <WordReveal
-              as="div"
-              text={project.year}
-              delay={0.34}
-              style={{
-                fontFamily: 'Geist Mono',
-                fontSize: '12px',
-                color: '#1A1814',
-                fontWeight: 500,
-                textAlign: 'right',
-                flex: 0.5,
-              }}
-            />
 
             {/* Overlay card */}
             {hoveredIndex === index && (
@@ -298,40 +439,7 @@ function Works() {
                   backgroundColor: '#FFFFFF',
                 }}
               >
-                {/* placeholder */}
-                {project.layout?.hero?.type === 'video' ? (
-                  <video
-                    src={project.layout.hero.src}
-                    poster={project.layout.hero.poster}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      width: '100%',
-                      height: '100%',
-                      objectFit: project.layout.hero.objectFit || 'cover',
-                      objectPosition: project.layout.hero.objectPosition || 'center',
-                      display: 'block',
-                    }}
-                  />
-                ) : (
-                  <img
-                    src={project.layout?.hero?.src || project.img}
-                    alt={project.title}
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      width: '100%',
-                      height: '100%',
-                      objectFit: project.layout?.hero?.objectFit || 'cover',
-                      objectPosition: project.layout?.hero?.objectPosition || 'center',
-                      display: 'block',
-                    }}
-                  />
-                )}
+                <ProjectMedia project={project} />
               </motion.div>
             )}
           </Link>
@@ -413,20 +521,7 @@ function Works() {
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="works-footer" style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '24px 48px',
-        backgroundColor: '#fff',
-      }}>
-        <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: '#1A1814', letterSpacing: '0.08em' }}>
-          ANDIKA FAHREZI®
-        </span>
-        <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: '#1A1814' }}>
-          andfrz09@gmail.com
-        </span>
-      </footer>
+      <SiteFooter />
 
     </div>
   )

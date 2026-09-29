@@ -28,6 +28,7 @@ function Navbar() {
   }, [])
 
   const navbarColors = {
+    main: '#0B33A7',
     text: '#1A1814',
     muted: 'rgba(26,24,20,0.5)',
     faint: 'rgba(26,24,20,0.4)',
@@ -39,7 +40,7 @@ function Navbar() {
       <nav className="hidden md:flex absolute top-0 left-0 right-0 z-50 items-start justify-between bg-transparent"
         style={{ padding: '24px 48px' }}
       >
-        <Link to="/" style={{ fontFamily: 'Geist Mono', fontSize: '12px', color: navbarColors.text, letterSpacing: '0.1em', textDecoration: 'none' }}>
+        <Link to="/" style={{ fontFamily: 'Geist Mono', fontSize: '12px', color: navbarColors.main, letterSpacing: '0.1em', textDecoration: 'none' }}>
           ANDIKA FAHREZI®
         </Link>
 
@@ -61,11 +62,11 @@ function Navbar() {
                   fontSize: '12px',
                   letterSpacing: '0.05em',
                   textDecoration: 'none',
-                  color: isActive ? '#E8650A' : navbarColors.text,
+                  color: isActive ? navbarColors.text : navbarColors.main,
                   transition: 'color 0.3s ease',
                 }}
-                onMouseEnter={e => { if (!isActive) e.currentTarget.style.color = '#ff5500' }}
-                onMouseLeave={e => { if (!isActive) e.currentTarget.style.color = navbarColors.text }}
+                onMouseEnter={e => { if (!isActive) e.currentTarget.style.color = navbarColors.text }}
+                onMouseLeave={e => { if (!isActive) e.currentTarget.style.color = navbarColors.main }}
               >
                 {link.label}
               </Link>
@@ -106,7 +107,7 @@ function Navbar() {
               left: 0,
               right: 0,
               height: '50vh',
-              backgroundColor: '#1A1814',
+              backgroundColor: '#0B33A7',
               zIndex: 40,
               display: 'flex',
               flexDirection: 'column',
@@ -130,9 +131,9 @@ function Navbar() {
                     onClick={() => setMenuOpen(false)}
                     style={{
                       fontFamily: 'Plus Jakarta Sans',
-                      fontWeight: 600,
+                      fontWeight: 500,
                       fontSize: 'clamp(12px, 12vw, 22px)',
-                      color: isActive ? '#ff5500' : 'white',
+                      color: isActive ? '#888' : 'white',
                       textDecoration: 'none',
                       letterSpacing: '-0.02em',
                       lineHeight: 0.5,

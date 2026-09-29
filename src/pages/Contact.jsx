@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Navbar from '../components/Navbar'
+import SiteFooter from '../components/SiteFooter'
 
 const WORD_STAGGER = 0.03
 const WORD_DURATION = 0.5
@@ -217,12 +218,6 @@ function Contact() {
             gap: 8px !important;
             padding: 14px 0 !important;
           }
-          .contact-footer {
-            padding: 18px 20px !important;
-            flex-direction: column;
-            gap: 12px;
-            text-align: center;
-          }
         }
       `}</style>
       <Navbar />
@@ -265,7 +260,7 @@ function Contact() {
             style={{
               fontFamily: 'Geist Mono',
               fontSize: '11px',
-              color: '#E8650A',
+              color: '#0B33A7',
               letterSpacing: '0.15em',
               maxWidth: '320px',
               lineHeight: 1.7,
@@ -297,8 +292,8 @@ function Contact() {
           <span
             style={{
               fontFamily: 'Geist Mono',
-              fontSize: '11px',
-              color: '#E8650A',
+              fontSize: '12px',
+              color: '#0B33A7',
               letterSpacing: '0.15em',
               display: 'block',
               marginBottom: '24px',
@@ -416,8 +411,8 @@ function Contact() {
           <span
             style={{
               fontFamily: 'Geist Mono',
-              fontSize: '11px',
-              color: '#E8650A',
+              fontSize: '12px',
+              color: '#0B33A7',
               letterSpacing: '0.15em',
               display: 'block',
             }}
@@ -475,8 +470,8 @@ function Contact() {
           <span
             style={{
               fontFamily: 'Geist Mono',
-              fontSize: '11px',
-              color: '#E8650A',
+              fontSize: '12px',
+              color: '#0B33A7',
               letterSpacing: '0.12em',
               display: 'block',
               marginBottom: '24px',
@@ -527,7 +522,7 @@ function Contact() {
                 style={{
                   fontFamily: 'Geist Mono',
                   fontSize: '11px',
-                  color: '#E8650A',
+                  color: '#0B33A7',
                   letterSpacing: '0.12em',
                   marginBottom: '12px',
                 }}
@@ -558,7 +553,7 @@ function Contact() {
               style={{
                 fontFamily: 'Geist Mono',
                 fontSize: '11px',
-                color: '#E8650A',
+                color: '#0B33A7',
                 letterSpacing: '0.12em',
                 marginBottom: '12px',
               }}
@@ -593,7 +588,7 @@ function Contact() {
               height: '42px',
               padding: '10px 14px',
               border: 'none',
-              backgroundColor: '#09090B',
+              backgroundColor: '#0B33A7',
               color: '#FFFFFF',
               fontFamily: 'Plus Jakarta Sans',
               fontSize: '16px',
@@ -639,8 +634,8 @@ function Contact() {
           <span
             style={{
               fontFamily: 'Geist Mono',
-              fontSize: '11px',
-              color: '#E8650A',
+              fontSize: '12px',
+              color: '#0B33A7',
               letterSpacing: '0.15em',
               display: 'block',
             }}
@@ -724,36 +719,7 @@ function Contact() {
         </motion.div>
       </section>
 
-      <footer
-        className="contact-footer"
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: '24px 48px',
-          backgroundColor: '#FFFFFF',
-        }}
-      >
-        <span
-          style={{
-            fontFamily: 'Geist Mono',
-            fontSize: '11px',
-            color: '#1A1814',
-            letterSpacing: '0.08em',
-          }}
-        >
-          ANDIKA FAHREZI®
-        </span>
-        <span
-          style={{
-            fontFamily: 'Geist Mono',
-            fontSize: '11px',
-            color: '#1A1814',
-          }}
-        >
-          andfrz09@gmail.com
-        </span>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

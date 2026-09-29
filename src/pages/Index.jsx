@@ -1,6 +1,7 @@
 import { motion as Motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
+import SiteFooter from '../components/SiteFooter'
 import { projects } from '../data/projects'
 
 function Gallery({ images }) {
@@ -94,8 +95,7 @@ function Index() {
         }
 
         .index-selected-header,
-        .index-docs-header,
-        .index-footer {
+        .index-docs-header {
           padding-left: 48px;
           padding-right: 48px;
         }
@@ -176,14 +176,6 @@ function Index() {
           gap: 12px;
         }
 
-        .index-footer {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding-top: 24px;
-          padding-bottom: 24px;
-        }
-
         @media (max-width: 1024px) {
           .index-hero-name h1 {
             font-size: clamp(42px, 12vw, 150px) !important;
@@ -221,8 +213,7 @@ function Index() {
           }
 
           .index-selected-header,
-          .index-docs-header,
-          .index-footer {
+          .index-docs-header {
             padding-left: 16px;
             padding-right: 16px;
           }
@@ -238,10 +229,6 @@ function Index() {
             align-items: flex-start;
             gap: 12px;
             padding: 14px 16px;
-          }
-
-          .index-project-row {
-            position: static;
           }
 
           .index-project-main {
@@ -295,11 +282,6 @@ function Index() {
             gap: 24px;
           }
 
-          .index-footer {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 8px;
-          }
         }
       `}</style>
       <section style={{
@@ -349,7 +331,7 @@ function Index() {
           <h1
             className="leading-none"
             style={{
-              color: '#ff5500',
+              color: '#0B33A7',
               fontFamily: "'Drowner-Free', sans-serif",
               // fontWeight: 900,
               fontSize: 'clamp(42px, 14vw, 480px)',
@@ -424,10 +406,10 @@ function Index() {
         backgroundColor: '#fff',
         // borderBottom: '0.5px solid #D4CFC8',
       }}>
-        <span style={{ fontFamily: 'Geist Mono', fontSize: '12px', fontWeight: 600, color: '#999', letterSpacing: '0.15em' }}>
+        <span style={{ fontFamily: 'Geist Mono', fontSize: '12px', fontWeight: 500, color: '#999', letterSpacing: '0.15em' }}>
           SELECTED WORKS
         </span>
-        <span style={{ fontFamily: 'Geist Mono', fontSize: '12px', fontWeight: 600, color: '#999' }}>
+        <span style={{ fontFamily: 'Geist Mono', fontSize: '12px', fontWeight: 500, color: '#999' }}>
           (22–26)
         </span>
       </div>
@@ -444,9 +426,9 @@ function Index() {
             flexDirection: 'column',
           }}
           onMouseEnter={e => {
-            e.currentTarget.style.backgroundColor = '#Fff'
+            e.currentTarget.style.backgroundColor = '#fff'
             const titles = e.currentTarget.querySelectorAll('.proj-title')
-            titles.forEach(t => t.style.color = '#E8650A')
+            titles.forEach(t => t.style.color = '#0B33A7')
           }}
           onMouseLeave={e => {
             e.currentTarget.style.backgroundColor = '#fff'
@@ -459,7 +441,7 @@ function Index() {
             <div className="index-project-header">
             {/* Left side: num + title */}
             <div className="index-project-main">
-              <span style={{ fontFamily: 'Geist Mono', fontSize: '11px', color: '#E8650A', minWidth: '24px' }}>
+              <span style={{ fontFamily: 'Geist Mono', fontSize: '12px', color: '#0B33A7', minWidth: '24px' }}>
                 {project.num}
               </span>
               <Motion.div
@@ -511,8 +493,8 @@ function Index() {
                 <span key={tag} style={{
                   fontFamily: 'Geist Mono',
                   fontSize: '10px',
-                  color: '#E8650A',
-                  border: '0.5px solid #E8650A',
+                  color: '#0B33A7',
+                  border: '1px solid #0B33A7',
                   padding: '2px 8px',
                   borderRadius: '100px',
                 }}>
@@ -521,8 +503,8 @@ function Index() {
               ))}
               <span style={{
                 fontFamily: 'Geist Mono',
-                fontSize: '10px',
-                color: '#ccc',
+                fontSize: '12px',
+                color: '#999',
                 padding: '2px 8px',
               }}>
                 {project.year}
@@ -561,8 +543,8 @@ function Index() {
             <span style={{
               fontFamily: 'Geist Mono',
               fontSize: '12px',
-              fontWeight: 600,
-              color: '#ff5500',
+              fontWeight: 500,
+              color: '#0B33A7',
               letterSpacing: '0.15em',
               display: 'block',
               marginBottom: '24px',
@@ -672,8 +654,8 @@ function Index() {
           <span style={{
             fontFamily: 'Geist Mono',
             fontSize: '12px',
-            fontWeight: 600,
-            color: '#ff5500',
+            fontWeight: 500,
+            color: '#0B33A7',
             letterSpacing: '0.15em',
             display: 'block',
           }}>
@@ -771,24 +753,7 @@ function Index() {
     </section>
 
     {/* ── FOOTER ── */}
-    <footer className="index-footer" style={{ backgroundColor: '#fff' }}>
-      <span style={{
-        fontFamily: 'Geist Mono',
-        fontSize: '12px',
-        fontWeight: 600,
-        color: '#1A1814',
-        letterSpacing: '0.08em',
-      }}>
-        ANDIKA FAHREZI®
-      </span>
-      <span style={{
-        fontFamily: 'Geist Mono',
-        fontSize: '12px',
-        color: '#1A1814',
-      }}>
-        andfrz09@gmail.com
-      </span>
-    </footer>
+    <SiteFooter />
 
     </div>
   )

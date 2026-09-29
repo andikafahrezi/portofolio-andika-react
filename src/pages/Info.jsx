@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import Navbar from '../components/Navbar'
+import SiteFooter from '../components/SiteFooter'
 
 const skills = [
   'UI/UX Design',
@@ -75,11 +76,11 @@ function SectionLabel({ children }) {
       style={{
         flex: '1 0 0',
         fontFamily: 'Geist Mono',
-        fontSize: '11px',
+        fontSize: '12px',
         fontWeight: 500,
         letterSpacing: '0.15em',
         textTransform: 'uppercase',
-        color: 'rgba(235, 109, 0, 1)',
+        color: '#0B33A7',
       }}
     />
   )
@@ -97,8 +98,7 @@ function Info() {
         .info-title,
         .info-section,
         .info-divider,
-        .info-image,
-        .info-footer {
+        .info-image {
           width: 100%;
         }
 
@@ -137,14 +137,6 @@ function Info() {
           gap: 12px;
         }
 
-        .info-footer {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 24px 48px;
-          background: #FFFFFF;
-        }
-
         @media (min-width: 810px) and (max-width: 1199.98px) {
           .info-title {
             padding: 160px 32px 72px 32px;
@@ -174,12 +166,6 @@ function Info() {
             width: 100%;
           }
 
-          .info-footer {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 8px;
-            padding: 24px 16px;
-          }
         }
       `}</style>
 
@@ -275,27 +261,7 @@ function Info() {
         <div className="info-divider" />
         <div className="info-divider" />
 
-        <footer className="info-footer">
-          <span
-            style={{
-              fontFamily: 'Geist Mono',
-              fontSize: '11px',
-              color: '#1A1814',
-              letterSpacing: '0.08em',
-            }}
-          >
-            ANDIKA FAHREZI®
-          </span>
-          <span
-            style={{
-              fontFamily: 'Geist Mono',
-              fontSize: '11px',
-              color: '#1A1814',
-            }}
-          >
-            andfrz09@gmail.com
-          </span>
-        </footer>
+        <SiteFooter />
       </div>
     </div>
   )
