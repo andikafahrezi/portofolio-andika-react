@@ -12,8 +12,8 @@ function SectionLabel({ children }) {
     <span
       style={{
         fontFamily: 'Geist Mono',
-        fontSize: '10px',
-        color: 'rgba(235, 109, 0, 0.72)',
+        fontSize: '12px',
+        color: '#0B33A7',
         letterSpacing: '0.14em',
         textTransform: 'uppercase',
         display: 'block',
@@ -504,7 +504,7 @@ function ProjectDetail() {
               to="/works"
               style={{
                 fontFamily: 'Geist Mono',
-                fontSize: '10px',
+                fontSize: '12px',
                 color: '#09090B',
                 textDecoration: 'none',
               }}
@@ -525,7 +525,7 @@ function ProjectDetail() {
                 <div
                   style={{
                     fontFamily: 'Geist Mono',
-                    fontSize: '9px',
+                    fontSize: '12px',
                     color: '#09090B',
                     textTransform: 'uppercase',
                     letterSpacing: '0.04em',

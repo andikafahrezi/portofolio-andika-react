@@ -210,7 +210,7 @@ function Works() {
           .works-project-number {
             font-size: 12px !important;
             line-height: 16.8px;
-            color: rgba(26, 24, 20, 0.5) !important;
+            color: #0B33A7 !important;
           }
           .works-project-title {
             font-size: 18px !important;
