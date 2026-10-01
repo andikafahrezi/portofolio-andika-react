@@ -1,12 +1,13 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import { useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Index from './pages/Index'
 import Works from './pages/Works'
 import Info from './pages/Info'
 import Contact from './pages/Contact'
 import ProjectDetail from './pages/ProjectDetail'
 import PageTransition from './components/PageTransition'
+import InitialLoader from './components/InitialLoader'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -52,15 +53,31 @@ function AnimatedRoutes() {
 }
 
 function App() {
+  const [isPortfolioReady, setIsPortfolioReady] = useState(false)
+  const handlePortfolioReady = useCallback(() => {
+    setIsPortfolioReady(true)
+  }, [])
+
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <div className="min-h-screen bg-white text-[#1A1814]">
-        <main>
-          <AnimatedRoutes />
-        </main>
+    <>
+      <div
+        className="min-h-screen bg-white text-[#1A1814]"
+        aria-hidden={!isPortfolioReady}
+        inert={!isPortfolioReady}
+        style={{
+          visibility: isPortfolioReady ? 'visible' : 'hidden',
+          pointerEvents: isPortfolioReady ? 'auto' : 'none',
+        }}
+      >
+        <BrowserRouter>
+          <ScrollToTop />
+          <main>
+            <AnimatedRoutes />
+          </main>
+        </BrowserRouter>
       </div>
-    </BrowserRouter>
+      <InitialLoader onComplete={handlePortfolioReady} />
+    </>
   )
 }
 

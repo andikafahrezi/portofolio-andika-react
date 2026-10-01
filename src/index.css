@@ -28,6 +28,64 @@ body {
   color: #1A1814;
 }
 
+.initial-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #0B33A7;
+  transition: opacity 0.45s ease-in-out;
+}
+
+.initial-loader-stage {
+  display: grid;
+  place-items: center;
+  width: min(85vw, 1226px, calc(75vh * 1.736));
+  aspect-ratio: 1.736 / 1;
+  background: #0B33A7;
+}
+
+.initial-loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.initial-loader-name {
+  color: #fff;
+  font-family: 'Mynerve', cursive;
+  font-size: clamp(18px, 1.4vw, 24px);
+  line-height: 1.2;
+}
+
+.initial-loader-track {
+  position: relative;
+  width: clamp(96px, 8.8vw, 152px);
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.initial-loader-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: inherit;
+  background: #fff;
+}
+
+/* .initial-loader-dot {
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, -50%);
+} */
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
