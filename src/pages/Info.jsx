@@ -193,7 +193,7 @@ function Info() {
 
         <div className="info-image" />
 
-        <section className="info-section">
+        <section className="info-section" style={{borderBottom: '0.5px solid #D4CFC8'}}>
           <SectionLabel>Who I am</SectionLabel>
 
           <div
@@ -230,9 +230,11 @@ function Info() {
           </div>
         </section>
 
-        <div className="info-divider" />
+        {/* <div className="info-divider" /> */}
 
-        <section className="info-section">
+        <section className="info-section" style={{ 
+          borderBottom: '0.5px solid #D4CFC8' 
+        }}>
           <SectionLabel>SKILLS</SectionLabel>
 
           <div className="info-skills">
@@ -257,9 +259,9 @@ function Info() {
           </div>
         </section>
 
-        <div className="info-divider" />
-        <div className="info-divider" />
-        <div className="info-divider" />
+        {/* <div className="info-divider" /> */}
+        {/* <div className="info-divider" /> */}
+        {/* <div className="info-divider" /> */}
 
         <SiteFooter />
       </div>

@@ -539,7 +539,9 @@ function ProjectDetail() {
           </div>
         </section>
 
-        <section className="detail-shell detail-cta">
+        <section className="detail-shell detail-cta" style={{ 
+          borderBottom: '0.5px solid #D4CFC8' 
+        }}>
           <div />
           <div>
             <p

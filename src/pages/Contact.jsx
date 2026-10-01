@@ -514,8 +514,8 @@ function Contact() {
           />
 
           {[
-            { label: 'Name', type: 'text', name: 'name', placeholder: 'Your name' },
-            { label: 'Email', type: 'email', name: 'email', placeholder: 'Your email' },
+            { label: 'NAME', type: 'text', name: 'name', placeholder: 'Your name' },
+            { label: 'EMAIL', type: 'email', name: 'email', placeholder: 'Your email' },
           ].map((field) => (
             <label key={field.label} style={{ display: 'flex', flexDirection: 'column' }}>
               <span
@@ -558,7 +558,7 @@ function Contact() {
                 marginBottom: '12px',
               }}
             >
-              Message
+              MESSAGE
             </span>
             <textarea
               name="message"

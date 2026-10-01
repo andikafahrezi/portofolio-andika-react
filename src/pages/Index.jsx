@@ -1,4 +1,4 @@
-import { motion as Motion } from 'framer-motion'
+import { motion as Motion, rgba } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import SiteFooter from '../components/SiteFooter'
@@ -348,7 +348,7 @@ function Index() {
       </section>
 
       {/* ── BIO ── */}
-      <section className="index-bio-section" style={{ backgroundColor: '#fff', borderBottom: '0.5px solid #D4CFC8' }}>
+      <section className="index-bio-section" style={{ backgroundColor: '#fff' }}>
         <Motion.div
           initial="hidden"
           whileInView="visible"
@@ -406,10 +406,10 @@ function Index() {
         backgroundColor: '#fff',
         // borderBottom: '0.5px solid #D4CFC8',
       }}>
-        <span style={{ fontFamily: 'Geist Mono', fontSize: '12px', fontWeight: 500, color: '#999', letterSpacing: '0.15em' }}>
+        <span style={{ fontFamily: 'Geist Mono', fontSize: '12px', fontWeight: 500, color: '#0B33A7', letterSpacing: '0.15em' }}>
           SELECTED WORKS
         </span>
-        <span style={{ fontFamily: 'Geist Mono', fontSize: '12px', fontWeight: 500, color: '#999' }}>
+        <span style={{ fontFamily: 'Geist Mono', fontSize: '12px', fontWeight: 500, color: 'rgba(11, 51, 167, 0.5)' }}>
           (22–26)
         </span>
       </div>
@@ -421,7 +421,7 @@ function Index() {
           key={project.num}
           className="index-project-row"
           style={{
-            borderBottom: '0.5px solid #D4CFC8',
+            borderTop: '0.5px solid #D4CFC8',
             display: 'flex',
             flexDirection: 'column',
           }}
