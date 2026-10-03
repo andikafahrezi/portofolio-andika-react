@@ -311,16 +311,16 @@ function Index() {
             zIndex: 0,
           }}
         >
-          <source src="/video/andika_raindropeffect.mp4" type="video/mp4" />
+          <source src="/video/andika_raindropeffectlight.mp4" type="video/mp4" />
         </video>
 
         {/* Overlay gelap */}
-        <div style={{
+        {/* <div style={{
           position: 'absolute',
           inset: 0,
           backgroundColor: 'rgba(0, 0, 0, 0)',
           zIndex: 1,
-        }} />
+        }} /> */}
 
         {/* Nama — di atas overlay */}
         <Motion.div
